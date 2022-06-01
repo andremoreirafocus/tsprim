@@ -1,13 +1,14 @@
 import { v4 as uuid } from "uuid";
 
 import Category from "../models/Category";
+import { ICategoriesRepository } from "./ICategoriesRepository";
 
 interface ICreateCategoryDTO {
   name: String;
   description: String;
 }
 
-export default class CategoriesRepository {
+export default class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
   constructor() {
@@ -29,7 +30,7 @@ export default class CategoriesRepository {
     return this.categories;
   }
 
-  findOne(name: String): Category {
+  findByName(name: String): Category {
     const category = this.categories.find((category) => category.name === name);
     console.log(`procurando categoria ${name}`);
     return category;

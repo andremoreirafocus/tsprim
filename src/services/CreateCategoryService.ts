@@ -1,13 +1,11 @@
 import Category from "../models/Category";
-import CategoriesRepository from "../repositories/CategoriesRepository";
-
-interface ICreateCategoryDTO {
-  name: String;
-  description: String;
-}
+import {
+  ICategoriesRepository,
+  ICreateCategoryDTO,
+} from "../repositories/ICategoriesRepository";
 
 export default class CreateCategoryService {
-  constructor(private categoriesRepository: CategoriesRepository) {}
+  constructor(private categoriesRepository: ICategoriesRepository) {}
   execute({ name, description }: ICreateCategoryDTO): void {
     const foundCategory: Category = this.checkIfAlreadyExists(name);
     if (foundCategory) {
@@ -18,7 +16,7 @@ export default class CreateCategoryService {
   }
 
   checkIfAlreadyExists(name: String): Category | undefined {
-    const category: Category = this.categoriesRepository.findOne(name);
+    const category: Category = this.categoriesRepository.findByName(name);
     return category;
   }
 }
