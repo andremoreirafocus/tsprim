@@ -1,10 +1,10 @@
-import Category from "../models/Category";
+import Category from "../../modules/cars/models/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
-} from "../repositories/ICategoriesRepository";
+} from "../../modules/cars/repositories/ICategoriesRepository";
 
-export default class CreateCategoryService {
+export default class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
   execute({ name, description }: ICreateCategoryDTO): void {
     const categoryAlreadyExists = this.checkIfAlreadyExists(name);
