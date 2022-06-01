@@ -15,7 +15,7 @@ export default class CreateCategoryService {
     this.categoriesRepository.create({ name, description });
   }
 
-  checkIfAlreadyExists(name: String): Category | undefined {
+  checkIfAlreadyExists(name: string): Category | undefined {
     const category: Category = this.categoriesRepository.findByName(name);
     return category;
   }

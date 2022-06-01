@@ -1,13 +1,13 @@
 interface Icategory {
-  id: String;
-  name: String;
-  description: String;
+  id: string;
+  name: string;
+  description: string;
   created_at: Date;
 }
 export default class Category {
-  id: String;
-  name: String;
-  description: String;
+  id: string;
+  name: string;
+  description: string;
   created_at: Date;
   constructor(category: Icategory) {
     this.id = category.id;

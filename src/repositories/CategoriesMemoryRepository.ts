@@ -4,8 +4,8 @@ import Category from "../models/Category";
 import { ICategoriesRepository } from "./ICategoriesRepository";
 
 interface ICreateCategoryDTO {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
 }
 
 export default class CategoriesRepository implements ICategoriesRepository {
@@ -30,7 +30,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
     return this.categories;
   }
 
-  findByName(name: String): Category {
+  findByName(name: string): Category {
     const category = this.categories.find((category) => category.name === name);
     console.log(`procurando categoria ${name}`);
     return category;
