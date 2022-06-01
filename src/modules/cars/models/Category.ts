@@ -1,4 +1,4 @@
-interface Icategory {
+interface ICategory {
   id: string;
   name: string;
   description: string;
@@ -9,7 +9,7 @@ export default class Category {
   name: string;
   description: string;
   created_at: Date;
-  constructor(category: Icategory) {
+  constructor(category: ICategory) {
     this.id = category.id;
     this.name = category.name;
     this.description = category.description;
