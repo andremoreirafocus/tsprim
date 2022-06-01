@@ -7,16 +7,17 @@ import {
 export default class CreateCategoryService {
   constructor(private categoriesRepository: ICategoriesRepository) {}
   execute({ name, description }: ICreateCategoryDTO): void {
-    const foundCategory: Category = this.checkIfAlreadyExists(name);
-    if (foundCategory) {
+    const categoryAlreadyExists = this.checkIfAlreadyExists(name);
+    if (categoryAlreadyExists) {
       throw new Error("Category already exists!");
     }
 
     this.categoriesRepository.create({ name, description });
   }
 
-  checkIfAlreadyExists(name: string): Category | undefined {
+  checkIfAlreadyExists(name: string): boolean {
     const category: Category = this.categoriesRepository.findByName(name);
-    return category;
+    const alreadyExists = !!category;
+    return alreadyExists;
   }
 }

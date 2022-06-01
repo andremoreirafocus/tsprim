@@ -8,7 +8,7 @@ interface ICreateSpecificationDTO {
   description: string;
 }
 
-export default class SpecificationsRepository
+export default class SpecificationsMemoryRepository
   implements ISpecificationsRepository {
   private specifications: Specification[];
 

@@ -7,18 +7,19 @@ import {
 export default class CreateSpecificationService {
   constructor(private specificationsRepository: ISpecificationsRepository) {}
   execute({ name, description }: ICreateSpecificationDTO): void {
-    const foundSpecification: Specification = this.checkIfAlreadyExists(name);
-    if (foundSpecification) {
+    const specificationAlreadyExists: boolean = this.checkIfAlreadyExists(name);
+    if (specificationAlreadyExists) {
       throw new Error("Specification already exists!");
     }
 
     this.specificationsRepository.create({ name, description });
   }
 
-  checkIfAlreadyExists(name: string): Specification | undefined {
-    const category: Specification = this.specificationsRepository.findByName(
+  checkIfAlreadyExists(name: string): boolean {
+    const specification: Specification = this.specificationsRepository.findByName(
       name
     );
-    return category;
+    const alreadyExists = !!specification;
+    return alreadyExists;
   }
 }

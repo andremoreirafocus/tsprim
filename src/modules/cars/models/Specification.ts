@@ -4,7 +4,7 @@ interface ISpecification {
   description: string;
   created_at: Date;
 }
-export default class Category {
+export default class Specification {
   id: string;
   name: string;
   description: string;
