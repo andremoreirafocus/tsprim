@@ -7,11 +7,9 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Launch Program",
+      "name": "Debug Program",
       "skipFiles": ["<node_internals>/**"],
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/**/*.js"]
     }
   ]
 }

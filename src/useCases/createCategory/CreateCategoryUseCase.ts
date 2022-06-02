@@ -6,6 +6,7 @@ import {
 
 export default class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
+
   execute({ name, description }: ICreateCategoryDTO): void {
     const categoryAlreadyExists = this.checkIfAlreadyExists(name);
     if (categoryAlreadyExists) {
