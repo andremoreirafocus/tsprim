@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
-import CreateCategoryUseCase from "./CreateCategoryUseCase";
+import { ICreateCategoryUseCase } from "./ICreateCategoryUseCase";
 
 export default class CreateCategoryHandler {
-  constructor(private createCategoryUseCase: CreateCategoryUseCase) {
-    console.log(`Criei controller com use case ${createCategoryUseCase}`);
-  }
+  constructor(private createCategoryUseCase: ICreateCategoryUseCase) {}
 
   handle(request: Request, response: Response): Response {
     const { name, description } = request.body;

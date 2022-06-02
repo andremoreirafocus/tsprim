@@ -3,8 +3,9 @@ import {
   ICategoriesRepository,
   ICreateCategoryDTO,
 } from "../../modules/cars/repositories/ICategoriesRepository";
+import { ICreateCategoryUseCase } from "./ICreateCategoryUseCase";
 
-export default class CreateCategoryUseCase {
+export default class CreateCategoryUseCase implements ICreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
   execute({ name, description }: ICreateCategoryDTO): void {
