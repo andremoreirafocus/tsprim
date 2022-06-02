@@ -2,7 +2,7 @@ import CategoriesMemoryRepository from "../../modules/cars/repositories/Categori
 import CreateCategoryUseCase from "./CreateCategoryUseCase";
 import CreateCategoryHandler from "./CreateCategoryHandler";
 
-const categoriesRepository = new CategoriesMemoryRepository();
+const categoriesRepository = CategoriesMemoryRepository.getInstance();
 const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
 const createCategoryHandler = new CreateCategoryHandler(createCategoryUseCase);
 

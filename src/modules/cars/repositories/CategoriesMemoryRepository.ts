@@ -11,8 +11,17 @@ interface ICreateCategoryDTO {
 export default class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
-  constructor() {
+  private static INSTANCE: CategoriesRepository;
+
+  private constructor() {
     this.categories = [];
+  }
+
+  static getInstance() {
+    if (!this.INSTANCE) {
+      this.INSTANCE = new CategoriesRepository();
+    }
+    return this.INSTANCE;
   }
 
   create({ name, description }: ICreateCategoryDTO) {
