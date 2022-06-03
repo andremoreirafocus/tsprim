@@ -1,13 +1,16 @@
-import Specification from "../models/Specification";
+import Specification from "../../modules/cars/models/Specification";
 import {
-  ISpecificationsRepository,
   ICreateSpecificationDTO,
-} from "../repositories/ISpecificationsRepository";
+  ISpecificationsRepository,
+} from "../../modules/cars/repositories/ISpecificationsRepository";
+import { ICreateSpecificationUseCase } from "./ICreateSpecificationUseCase";
 
-export default class CreateSpecificationService {
+export default class CreateSpecificationUseCase
+  implements ICreateSpecificationUseCase {
   constructor(private specificationsRepository: ISpecificationsRepository) {}
+
   execute({ name, description }: ICreateSpecificationDTO): void {
-    const specificationAlreadyExists: boolean = this.checkIfAlreadyExists(name);
+    const specificationAlreadyExists = this.checkIfAlreadyExists(name);
     if (specificationAlreadyExists) {
       throw new Error("Specification already exists!");
     }

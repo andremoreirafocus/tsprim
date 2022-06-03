@@ -1,5 +1,5 @@
 import CategoriesMemoryRepository from "../../modules/cars/repositories/CategoriesMemoryRepository";
-import ListCategoriesUseCase from "./listCategoriesUseCase";
+import ListCategoriesUseCase from "./ListCategoriesUseCase";
 import ListCategoriesHandler from "./ListCategoriesHandler";
 
 const categoriesRepository = CategoriesMemoryRepository.getInstance();

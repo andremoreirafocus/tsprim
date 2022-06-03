@@ -12,8 +12,17 @@ export default class SpecificationsMemoryRepository
   implements ISpecificationsRepository {
   private specifications: Specification[];
 
-  constructor() {
+  static INSTANCE: SpecificationsMemoryRepository;
+
+  private constructor() {
     this.specifications = [];
+  }
+
+  static getInstance() {
+    if (!this.INSTANCE) {
+      this.INSTANCE = new SpecificationsMemoryRepository();
+    }
+    return this.INSTANCE;
   }
 
   create({ name, description }: ICreateSpecificationDTO) {
