@@ -10,7 +10,6 @@ export default class ImportCategoryHandler {
     try {
       const { file } = request;
       console.log(file);
-      // return response.json(file);
       const categoriesListFileName = file.path;
       const categories = await this.extractCategoriesFromFile(
         categoriesListFileName
@@ -22,7 +21,7 @@ export default class ImportCategoryHandler {
     return response.status(201).send();
   }
 
-  async extractCategoriesFromFile(file: any): Promise<Category[]> {
+  async extractCategoriesFromFile(file: string): Promise<Category[]> {
     const lines = await this.getFileContent(file);
     const categories = [];
     for (const line of lines.split("\r\n")) {
