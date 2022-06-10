@@ -1,7 +1,7 @@
 import { ICreateCategoryDTO } from "../../modules/cars/repositories/ICategoriesRepository";
 
 interface IImportCategoriesUseCase {
-  execute(categories: ICreateCategoryDTO[]): void;
+  execute(categoriesFilePath: string): void;
 }
 
 export { ICreateCategoryDTO, IImportCategoriesUseCase };

@@ -5,18 +5,46 @@ import {
 } from "../../modules/cars/repositories/ICategoriesRepository";
 import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 
+import { readFile } from "fs/promises";
+import fs from "fs";
+import { parse as csvParser } from "csv-parse";
+
 export default class ImportCategoriesUseCase
-  implements IImportCategoriesUseCase {
+// implements IImportCategoriesUseCase
+{
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
-  execute(categories: ICreateCategoryDTO[]): void {
+  async loadCategories(categoriesListFileName: string): Promise<Category[]> {
+    return new Promise((resolve, reject) => {
+      const stream = fs.createReadStream(categoriesListFileName);
+      const csvFileParser = csvParser({
+        delimiter: ";",
+      });
+      const categories = [];
+      stream.pipe(csvFileParser);
+      csvFileParser.on("data", async (line) => {
+        const [name, description] = line;
+        categories.push({ name, description });
+      });
+      csvFileParser.on("end", () => {
+        console.log(categories);
+        resolve(categories);
+      });
+      csvFileParser.on("error", () => {
+        reject(new Error(`error parsing file ${categoriesListFileName}!`));
+      });
+    });
+  }
+
+  async execute(categoriesListFileName: string): Promise<void> {
+    const categories = await this.loadCategories(categoriesListFileName);
     for (const category of categories) {
       const { name, description } = category;
       const categoryAlreadyExists = this.checkIfAlreadyExists(name);
       if (categoryAlreadyExists) {
-        throw new Error("Category already exists!");
-      }
-      this.categoriesRepository.create({ name, description });
+        // throw new Error("Category already exists!");
+        console.log(`Category ${name} already exists!`);
+      } else this.categoriesRepository.create({ name, description });
     }
   }
 
