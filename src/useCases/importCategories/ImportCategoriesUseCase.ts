@@ -5,7 +5,7 @@ import {
 } from "../../modules/cars/repositories/ICategoriesRepository";
 import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 
-import { readFile } from "fs/promises";
+import { unlink } from "fs/promises";
 import fs from "fs";
 import { parse as csvParser } from "csv-parse";
 
@@ -26,8 +26,13 @@ export default class ImportCategoriesUseCase
         const [name, description] = line;
         categories.push({ name, description });
       });
-      csvFileParser.on("end", () => {
+      csvFileParser.on("end", async () => {
         console.log(categories);
+        try {
+          await unlink(categoriesListFileName);
+        } catch (err) {
+          console.log(`Error removing file ${categoriesListFileName}`);
+        }
         resolve(categories);
       });
       csvFileParser.on("error", () => {
