@@ -1,7 +1,8 @@
 {
   "type": "postgres",
-  "host": "localhost",
-  "user": "user",
-  "password": "password",
+  "host": "pgdb",
+  "port": 5432,
+  "username": "pg",
+  "password": "ignite",
   "database": "rents"
 }

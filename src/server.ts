@@ -13,5 +13,5 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(router);
 
 app.listen(3333, () => {
-  console.log("API started!");
+  console.log("API started 2!");
 });
