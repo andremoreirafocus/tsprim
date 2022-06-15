@@ -15,7 +15,6 @@ services:
       - pgdata:/data/postgres
     networks: 
       - rents
-    # network_mode: host
   app:
     build: .
     container_name: tsprim
@@ -23,13 +22,8 @@ services:
       - 3333:3333
     volumes:
       - .:/usr/app
-    # network_mode: host
     networks: 
       - rents
-    # links:
-    #   - database
-    # depends_on:
-    #   - database
 
 volumes: 
   pgdata:
