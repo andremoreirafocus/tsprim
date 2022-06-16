@@ -1,9 +1,9 @@
-version: "3.7"
+version: "3.9"
 
 services: 
   database:
     image: postgres
-    container_name: pgdb
+    container_name: database
     restart: always
     ports:
       - 5432:5432
@@ -13,8 +13,6 @@ services:
       - POSTGRES_DB=rents
     volumes:
       - pgdata:/data/postgres
-    networks: 
-      - rents
   app:
     build: .
     container_name: tsprim
@@ -22,11 +20,11 @@ services:
       - 3333:3333
     volumes:
       - .:/usr/app
-    networks: 
-      - rents
+    links:
+      - database
+    depends_on:
+      - database
 
 volumes: 
   pgdata:
     driver: local
-networks:
-  rents:
