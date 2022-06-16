@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-import Category from "../models/Category";
+import Category from "../entities/Category";
 import { ICategoriesRepository } from "./ICategoriesRepository";
 
 interface ICreateCategoryDTO {
