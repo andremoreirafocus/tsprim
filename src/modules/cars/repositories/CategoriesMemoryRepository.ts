@@ -24,7 +24,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
     return this.INSTANCE;
   }
 
-  create({ name, description }: ICreateCategoryDTO) {
+  async create({ name, description }: ICreateCategoryDTO) {
     const category = new Category({
       id: uuid(),
       name,
@@ -35,11 +35,11 @@ export default class CategoriesRepository implements ICategoriesRepository {
     console.log(this.categories);
   }
 
-  get(): Category[] {
+  async get(): Promise<Category[]> {
     return this.categories;
   }
 
-  findByName(name: string): Category {
+  async findByName(name: string): Promise<Category> {
     const category = this.categories.find((category) => category.name === name);
     console.log(`procurando categoria ${name}`);
     return category;

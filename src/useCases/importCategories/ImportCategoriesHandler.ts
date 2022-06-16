@@ -12,7 +12,7 @@ export default class ImportCategoryHandler {
     try {
       const { file } = request;
       console.log(file);
-      this.importCategoriesUseCase.execute(file.path);
+      await this.importCategoriesUseCase.execute(file.path);
       return response.status(201).send();
     } catch (err) {
       return response.status(400).json({ error: err.message });

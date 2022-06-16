@@ -45,16 +45,17 @@ export default class ImportCategoriesUseCase
     const categories = await this.loadCategories(categoriesListFileName);
     for (const category of categories) {
       const { name, description } = category;
-      const categoryAlreadyExists = this.checkIfAlreadyExists(name);
+      const categoryAlreadyExists = await this.checkIfAlreadyExists(name);
       if (categoryAlreadyExists) {
         // throw new Error("Category already exists!");
         console.log(`Category ${name} already exists!`);
-      } else this.categoriesRepository.create({ name, description });
+      } 
+      else await this.categoriesRepository.create({ name, description });
     }
   }
 
-  checkIfAlreadyExists(name: string): boolean {
-    const category: Category = this.categoriesRepository.findByName(name);
+  async checkIfAlreadyExists(name: string): Promise<boolean> {
+    const category = await this.categoriesRepository.findByName(name);
     const alreadyExists = !!category;
     return alreadyExists;
   }

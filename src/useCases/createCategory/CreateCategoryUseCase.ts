@@ -8,8 +8,8 @@ import { ICreateCategoryUseCase } from "./ICreateCategoryUseCase";
 export default class CreateCategoryUseCase implements ICreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
-  execute({ name, description }: ICreateCategoryDTO): void {
-    const categoryAlreadyExists = this.checkIfAlreadyExists(name);
+  async execute({ name, description }: ICreateCategoryDTO): Promise<void> {
+    const categoryAlreadyExists = await this.checkIfAlreadyExists(name);
     if (categoryAlreadyExists) {
       throw new Error("Category already exists!");
     }
@@ -17,8 +17,8 @@ export default class CreateCategoryUseCase implements ICreateCategoryUseCase {
     this.categoriesRepository.create({ name, description });
   }
 
-  checkIfAlreadyExists(name: string): boolean {
-    const category: Category = this.categoriesRepository.findByName(name);
+  async checkIfAlreadyExists(name: string): Promise<boolean> {
+    const category = await this.categoriesRepository.findByName(name);
     const alreadyExists = !!category;
     return alreadyExists;
   }

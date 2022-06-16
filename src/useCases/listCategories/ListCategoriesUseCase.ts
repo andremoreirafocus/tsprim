@@ -5,8 +5,8 @@ import { IListCategoriesUseCase } from "./IListCategoriesUseCase";
 export default class ListCategoriesUseCase implements IListCategoriesUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
-  execute(): Category[] {
-    const categories: Category[] = this.categoriesRepository.get();
+  async execute(): Promise<Category[]> {
+    const categories: Category[] = await this.categoriesRepository.get();
     return categories;
   }
 }
