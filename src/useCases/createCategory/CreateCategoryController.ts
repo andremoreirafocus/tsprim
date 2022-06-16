@@ -1,9 +1,12 @@
-import CategoriesMemoryRepository from "../../modules/cars/repositories/CategoriesMemoryRepository";
+import CategoriesDatabaseRepository from "../../modules/cars/repositories/CategoriesDatabaseRepository"
 import CreateCategoryUseCase from "./CreateCategoryUseCase";
 import CreateCategoryHandler from "./CreateCategoryHandler";
 
-const categoriesRepository = CategoriesMemoryRepository.getInstance();
-const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
-const createCategoryHandler = new CreateCategoryHandler(createCategoryUseCase);
+export default () => {
+  const categoriesRepository = new CategoriesDatabaseRepository();
+  const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
+  const createCategoryHandler = new CreateCategoryHandler(createCategoryUseCase);
 
-export default createCategoryHandler;
+  return createCategoryHandler;
+}
+

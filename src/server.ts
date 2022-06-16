@@ -1,8 +1,10 @@
+import "./database/db";
+
+console.log('Rodei connect');
 import express from "express";
 import { router } from "./routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json";
-import "./database/db";
 
 const app = express();
 
@@ -13,5 +15,5 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(router);
 
 app.listen(3333, () => {
-  console.log("API started!");
+  console.log("API started!");  
 });

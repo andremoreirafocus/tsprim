@@ -10,18 +10,18 @@ import listCategoriesController from "../useCases/listCategories/ListCategoriesC
 import importCategoriesController from "../useCases/importCategories/ImportCategoriesController";
 
 categoriesRouter.post("/", (request, response) => {
-  createCategoryController.handle(request, response);
+  createCategoryController().handle(request, response);
 });
 
 categoriesRouter.get("/", (request, response) => {
-  listCategoriesController.handle(request, response);
+  listCategoriesController().handle(request, response);
 });
 
 categoriesRouter.post(
   "/import",
   upload.single("uploaded_file"),
   (request, response) => {
-    importCategoriesController.handle(request, response);
+    importCategoriesController().handle(request, response);
   }
 );
 

@@ -1,10 +1,12 @@
 {
   "type": "postgres",
-  "host": "localhost",
+  "host": "database",
   "port": 5432,
   "username": "pg",
   "password": "ignite",
   "database": "rents",
+  "entities": [ 
+    "src/modules/cars/entities/**/*.ts" ], 
   "migrations": ["./src/database/migrations/*.ts"],
   "cli": {
     "migrationsDir": "./src/database/migrations"

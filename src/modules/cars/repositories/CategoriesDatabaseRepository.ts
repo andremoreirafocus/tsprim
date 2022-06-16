@@ -1,5 +1,3 @@
-import { v4 as uuid } from "uuid";
-
 import Category from "../entities/Category";
 import { ICategoriesRepository } from "./ICategoriesRepository";
 
@@ -12,21 +10,10 @@ interface ICreateCategoryDTO {
 
 export default class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>
-  // private categories: Category[];
-
-  private static INSTANCE: CategoriesRepository;
 
   constructor() {
-    // this.categories = [];
     this.repository = getRepository(Category)
   }
-
-  // static getInstance() {
-  //   if (!this.INSTANCE) {
-  //     this.INSTANCE = new CategoriesRepository();
-  //   }
-  //   return this.INSTANCE;
-  // }
 
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
     const category = this.repository.create({
