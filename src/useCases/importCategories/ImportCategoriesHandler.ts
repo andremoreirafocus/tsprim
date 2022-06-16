@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Category from "../../modules/cars/models/Category";
+import Category from "../../modules/cars/entities/Category";
 import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 // import { readFile } from "fs/promises";
 // import fs from "fs";

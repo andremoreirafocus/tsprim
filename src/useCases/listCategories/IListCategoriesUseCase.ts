@@ -1,4 +1,4 @@
-import Category from "../../modules/cars/models/Category";
+import Category from "../../modules/cars/entities/Category";
 
 interface IListCategoriesUseCase {
   execute(): Category[];
