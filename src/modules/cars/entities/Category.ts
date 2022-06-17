@@ -21,14 +21,17 @@ export default class Category {
   @CreateDateColumn()
   created_at: Date;
 
-  constructor() {
+  constructor(name: string, description:string, created_at: Date, id?: string) {
     if (!this.id) {
       this.id = uuid();
-    }
-  // constructor(category: ICategory) {
-  //   this.id = category.id;
-  //   this.name = category.name;
-  //   this.description = category.description;
-  //   this.created_at = category.created_at;
+    } 
+    else
+      this.id = id;
+    if (name)
+      this.name = name;
+    if (description)
+      this.description = description;
+    if (created_at)
+      this.created_at = created_at;
   }
 }

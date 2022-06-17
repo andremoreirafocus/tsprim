@@ -1,6 +1,4 @@
 import "./database/db";
-
-console.log('Rodei connect');
 import express from "express";
 import { router } from "./routes";
 import swaggerUi from "swagger-ui-express";

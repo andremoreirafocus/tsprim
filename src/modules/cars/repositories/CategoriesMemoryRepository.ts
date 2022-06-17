@@ -1,5 +1,3 @@
-import { v4 as uuid } from "uuid";
-
 import Category from "../entities/Category";
 import { ICategoriesRepository } from "./ICategoriesRepository";
 
@@ -25,12 +23,12 @@ export default class CategoriesRepository implements ICategoriesRepository {
   }
 
   async create({ name, description }: ICreateCategoryDTO) {
-    const category = new Category({
-      id: uuid(),
+    const created_at = new Date();
+    const category = new Category(
       name,
       description,
-      created_at: new Date(),
-    });
+      created_at,
+    );
     this.categories.push(category);
     console.log(this.categories);
   }
