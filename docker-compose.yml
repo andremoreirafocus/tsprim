@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=ignite
       - POSTGRES_DB=rents
     volumes:
-      - pgdata:/data/postgres
+      - pgdata:/var/lib/postgresql/data
   app:
     build: .
     container_name: tsprim
@@ -28,4 +28,5 @@ services:
 
 volumes: 
   pgdata:
-    driver: local
+    external: true
+    
