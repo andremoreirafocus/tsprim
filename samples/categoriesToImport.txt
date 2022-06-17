@@ -1,2 +1,2 @@
-SUV; carro utilitário
-hatch; carro compacto
+SUV3; carro utilitário
+hatch3; carro compacto

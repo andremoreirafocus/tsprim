@@ -13,5 +13,5 @@ getConnectionOptions().then(options => {
   // here you can start to work with your entities
   console.log("connected to DB !!!!!")
   }).catch(error => console.log(error));
-});
+}); 
 

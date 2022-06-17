@@ -11,7 +11,8 @@ export default class CreateCategoryUseCase implements ICreateCategoryUseCase {
   async execute({ name, description }: ICreateCategoryDTO): Promise<void> {
     const categoryAlreadyExists = await this.checkIfAlreadyExists(name);
     if (categoryAlreadyExists) {
-      throw new Error("Category already exists!");
+      // throw new Error("Category already exists!");
+      console.log(`Category ${name} already exists!`);
     }
 
     this.categoriesRepository.create({ name, description });
