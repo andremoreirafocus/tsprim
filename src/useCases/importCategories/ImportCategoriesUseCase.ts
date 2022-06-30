@@ -5,7 +5,7 @@ import {
 } from "../../modules/cars/repositories/ICategoriesRepository";
 import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 
-import { unlink } from "fs/promises";
+import { promises as fsp } from "fs";
 import fs from "fs";
 import { parse as csvParser } from "csv-parse";
 
@@ -29,7 +29,7 @@ export default class ImportCategoriesUseCase
       csvFileParser.on("end", async () => {
         console.log(categories);
         try {
-          await unlink(categoriesListFileName);
+          await fsp.unlink(categoriesListFileName);
         } catch (err) {
           console.log(`Error removing file ${categoriesListFileName}`);
         }
