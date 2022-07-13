@@ -1,16 +1,25 @@
-// import CategoriesMemoryRepository from "../../modules/cars/repositories/CategoriesMemoryRepository";
-import CategoriesDatabaseRepository from "../../modules/cars/repositories/CategoriesDatabaseRepository"
+import { Request, Response } from "express";
+import { container } from "tsyringe";
+// import Category from "../../modules/cars/entities/Category";
+import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 import ImportCategoriesUseCase from "./ImportCategoriesUseCase";
-import ImportCategoriesHandler from "./ImportCategoriesHandler";
+// import { readFile } from "fs/promises";
+// import fs from "fs";
+// import { parse as csvParser } from "csv-parse";
 
-export default () => {
-  const categoriesRepository = new CategoriesDatabaseRepository();
-  // const categoriesRepository = CategoriesMemoryRepository.getInstance();
-  const importCategoriesUseCase = new ImportCategoriesUseCase(
-    categoriesRepository
-  );
-  const importCategoriesHandler = new ImportCategoriesHandler(
-    importCategoriesUseCase
-  );
-  return importCategoriesHandler;
+export default class ImportCategoryController {
+  // constructor(private importCategoriesUseCase: IImportCategoriesUseCase) {}
+
+  async handle(request: Request, response: Response): Promise<Response> {
+    try {
+      const importCategoriesUseCase = container.resolve(ImportCategoriesUseCase)
+      const { file } = request;
+      console.log(file);
+      // await this.importCategoriesUseCase.execute(file.path);
+      await importCategoriesUseCase.execute(file.path);
+      return response.status(201).send();
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
 }

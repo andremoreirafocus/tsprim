@@ -7,21 +7,18 @@ const categoriesRouter = Router();
 
 import CreateCategoryController from "../useCases/createCategory/CreateCategoryController";
 import ListCategoriesController from "../useCases/listCategories/ListCategoriesController";
-import importCategoriesController from "../useCases/importCategories/ImportCategoriesController";
+import ImportCategoriesController from "../useCases/importCategories/ImportCategoriesController";
 
 const createCategoryController = new CreateCategoryController();
 const listCategoriesController = new ListCategoriesController();
+const importCategoriesController = new ImportCategoriesController();
 
 categoriesRouter.post("/", createCategoryController.handle);
 
 categoriesRouter.get("/", listCategoriesController.handle);
 
-categoriesRouter.post(
-  "/import",
+categoriesRouter.post("/import",
   upload.single("uploaded_file"),
-  (request, response) => {
-    importCategoriesController().handle(request, response);
-  }
-);
+  importCategoriesController.handle);
 
 export { categoriesRouter };

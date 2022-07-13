@@ -1,18 +1,20 @@
 import Category from "../../modules/cars/entities/Category";
 import {
   ICategoriesRepository,
-  ICreateCategoryDTO,
+  // ICreateCategoryDTO,
 } from "../../modules/cars/repositories/ICategoriesRepository";
-import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
+// import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 
 import { promises as fsp } from "fs";
 import fs from "fs";
 import { parse as csvParser } from "csv-parse";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export default class ImportCategoriesUseCase
 // implements IImportCategoriesUseCase
 {
-  constructor(private categoriesRepository: ICategoriesRepository) {}
+  constructor(@inject("CategoriesRepository") private categoriesRepository: ICategoriesRepository) {}
 
   async loadCategories(categoriesListFileName: string): Promise<Category[]> {
     return new Promise((resolve, reject) => {
