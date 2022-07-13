@@ -1,13 +1,13 @@
-import SpecificationsMemoryRepository from "../../modules/cars/repositories/SpecificationsMemoryRepository";
+import { Request, Response } from "express";
+import { container } from "tsyringe";
+import Specification from "../../modules/cars/entities/Specification";
 import ListSpecificationsUseCase from "./ListSpecificationsUseCase";
-import ListSpecificationsHandler from "./ListSpecificationsHandler";
 
-const specificationsRepository = SpecificationsMemoryRepository.getInstance();
-const listSpecificationsUseCase = new ListSpecificationsUseCase(
-  specificationsRepository
-);
-const listSpecificationsHandler = new ListSpecificationsHandler(
-  listSpecificationsUseCase
-);
-
-export default listSpecificationsHandler;
+export default class ListSpecificationsController {
+  // constructor(private listSpecificationsUseCase: ListSpecificationsUseCase) {}
+  handle(request: Request, response: Response): void {
+    const listSpecificationsUseCase = container.resolve(ListSpecificationsUseCase)
+    const specifications: Specification[] = listSpecificationsUseCase.execute();
+    response.json(specifications);
+  }
+}

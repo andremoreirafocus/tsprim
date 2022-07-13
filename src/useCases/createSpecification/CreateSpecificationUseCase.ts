@@ -1,3 +1,4 @@
+import { inject, injectable } from "tsyringe";
 import Specification from "../../modules/cars/entities/Specification";
 import {
   ICreateSpecificationDTO,
@@ -5,9 +6,10 @@ import {
 } from "../../modules/cars/repositories/ISpecificationsRepository";
 import { ICreateSpecificationUseCase } from "./ICreateSpecificationUseCase";
 
+@injectable()
 export default class CreateSpecificationUseCase
   implements ICreateSpecificationUseCase {
-  constructor(private specificationsRepository: ISpecificationsRepository) {}
+  constructor(@inject("SpecificationsRepository") private specificationsRepository: ISpecificationsRepository) {}
 
   execute({ name, description }: ICreateSpecificationDTO): void {
     const specificationAlreadyExists = this.checkIfAlreadyExists(name);
