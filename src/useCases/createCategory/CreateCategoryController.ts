@@ -1,14 +1,19 @@
-import CategoriesDatabaseRepository from "../../modules/cars/repositories/CategoriesDatabaseRepository"
-// import CategoriesMemoryRepository from "../../modules/cars/repositories/CategoriesMemoryRepository"
+import { Request, Response } from "express";
+// import { ICreateCategoryUseCase } from "./ICreateCategoryUseCase";
 import CreateCategoryUseCase from "./CreateCategoryUseCase";
-import CreateCategoryHandler from "./CreateCategoryHandler";
+import { container } from "tsyringe";
 
-export default () => {
-  const categoriesRepository = new CategoriesDatabaseRepository();
-  // const categoriesRepository = CategoriesMemoryRepository.getInstance();
-  const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
-  const createCategoryHandler = new CreateCategoryHandler(createCategoryUseCase);
-
-  return createCategoryHandler;
+export default class CreateCategoryController {
+  // constructor(private createCategoryUseCase: ICreateCategoryUseCase) {}
+  
+  handle(request: Request, response: Response): Response {
+    const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
+    const { name, description } = request.body;
+    try {
+      createCategoryUseCase.execute({ name, description });
+    } catch (err) {
+      return response.status(500).json({ error: err.message });
+    }
+    return response.status(201).send();
+  }
 }
-

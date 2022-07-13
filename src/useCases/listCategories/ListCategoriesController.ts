@@ -1,12 +1,16 @@
-// import CategoriesMemoryRepository from "../../modules/cars/repositories/CategoriesMemoryRepository";
-import CategoriesDatabaseRepository from "../../modules/cars/repositories/CategoriesDatabaseRepository"
+import Category from "../../modules/cars/entities/Category";
+import { Request, Response } from "express";
+// import { IListCategoriesUseCase } from "./IListCategoriesUseCase";
 import ListCategoriesUseCase from "./ListCategoriesUseCase";
-import ListCategoriesHandler from "./ListCategoriesHandler";
+import { container } from "tsyringe";
 
-export default () => {
-  // const categoriesRepository = CategoriesMemoryRepository.getInstance();
-  const categoriesRepository = new CategoriesDatabaseRepository();
-  const listCategoriesUseCase = new ListCategoriesUseCase(categoriesRepository);
-  const listCategoriesHandler = new ListCategoriesHandler(listCategoriesUseCase);
-  return listCategoriesHandler
+export default class ListCategoriesHandler {
+  // constructor(private listCategoriesUseCase: IListCategoriesUseCase) {}
+
+  async handle(request: Request, response: Response): Promise<void> {
+    // const categories: Category[] = await this.listCategoriesUseCase.execute();
+    const listCategoriesUseCase = container.resolve(ListCategoriesUseCase)
+    const categories: Category[] = await listCategoriesUseCase.execute();
+    response.json(categories);
+  }
 }

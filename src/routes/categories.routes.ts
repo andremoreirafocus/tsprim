@@ -5,17 +5,16 @@ const upload = multer({ dest: "uploads/" });
 
 const categoriesRouter = Router();
 
-import createCategoryController from "../useCases/createCategory/CreateCategoryController";
-import listCategoriesController from "../useCases/listCategories/ListCategoriesController";
+import CreateCategoryController from "../useCases/createCategory/CreateCategoryController";
+import ListCategoriesController from "../useCases/listCategories/ListCategoriesController";
 import importCategoriesController from "../useCases/importCategories/ImportCategoriesController";
 
-categoriesRouter.post("/", (request, response) => {
-  createCategoryController().handle(request, response);
-});
+const createCategoryController = new CreateCategoryController();
+const listCategoriesController = new ListCategoriesController();
 
-categoriesRouter.get("/", (request, response) => {
-  listCategoriesController().handle(request, response);
-});
+categoriesRouter.post("/", createCategoryController.handle);
+
+categoriesRouter.get("/", listCategoriesController.handle);
 
 categoriesRouter.post(
   "/import",

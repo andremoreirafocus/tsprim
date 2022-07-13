@@ -1,12 +1,14 @@
-import Category from "../../modules/cars/entities/Category";
+import { inject, injectable } from "tsyringe";
+// import Category from "../../modules/cars/entities/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
 } from "../../modules/cars/repositories/ICategoriesRepository";
 import { ICreateCategoryUseCase } from "./ICreateCategoryUseCase";
 
+@injectable()
 export default class CreateCategoryUseCase implements ICreateCategoryUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) {}
+  constructor(@inject("CategoriesRepository") private categoriesRepository: ICategoriesRepository) {}
 
   async execute({ name, description }: ICreateCategoryDTO): Promise<void> {
     const categoryAlreadyExists = await this.checkIfAlreadyExists(name);
