@@ -17,7 +17,7 @@ export default class SpecificationsMemoryRepository
   }
 
 
-  create({ name, description }: ICreateSpecificationDTO) {
+  async create({ name, description }: ICreateSpecificationDTO) {
     const specification = new Specification({
       id: uuid(),
       name,
@@ -28,11 +28,11 @@ export default class SpecificationsMemoryRepository
     console.log(this.specifications);
   }
 
-  get(): Specification[] {
+  async get(): Promise<Specification[]> {
     return this.specifications;
   }
 
-  findByName(name: string): Specification {
+  async findByName(name: string): Promise<Specification> {
     const specification = this.specifications.find(
       (specification) => specification.name === name
     );
