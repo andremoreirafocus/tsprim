@@ -1,7 +1,7 @@
 import Category from "../../modules/cars/entities/Specification";
 
 interface IListSpecificationsUseCase {
-  execute(): Category[];
+  execute(): Promise<Category[]>;
 }
 
 export { IListSpecificationsUseCase };

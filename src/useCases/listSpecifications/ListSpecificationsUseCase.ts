@@ -8,8 +8,8 @@ export default class ListSpecificationsUseCase
   implements IListSpecificationsUseCase {
   constructor(@inject("SpecificationsRepository") private specificationsRepository: ISpecificationsRepository) {}
 
-  execute(): Specification[] {
-    const specifications: Specification[] = this.specificationsRepository.get();
+  async execute() {
+    const specifications = await this.specificationsRepository.get();
     return specifications;
   }
 }

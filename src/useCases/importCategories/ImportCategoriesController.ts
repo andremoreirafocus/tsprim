@@ -10,7 +10,7 @@ import ImportCategoriesUseCase from "./ImportCategoriesUseCase";
 export default class ImportCategoryController {
   // constructor(private importCategoriesUseCase: IImportCategoriesUseCase) {}
 
-  async handle(request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response) {
     try {
       const importCategoriesUseCase = container.resolve(ImportCategoriesUseCase)
       const { file } = request;

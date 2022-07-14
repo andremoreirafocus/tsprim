@@ -6,11 +6,11 @@ import { container } from "tsyringe";
 export default class CreateCategoryController {
   // constructor(private createCategoryUseCase: ICreateCategoryUseCase) {}
   
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response) {
     const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
     const { name, description } = request.body;
     try {
-      createCategoryUseCase.execute({ name, description });
+      await createCategoryUseCase.execute({ name, description });
     } catch (err) {
       return response.status(500).json({ error: err.message });
     }

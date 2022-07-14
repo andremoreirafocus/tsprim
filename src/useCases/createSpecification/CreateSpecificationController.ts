@@ -4,11 +4,11 @@ import CreateSpecificationUseCase from "./CreateSpecificationUseCase";
 
 export default class CreateSpecificationsController {
   // constructor(private createSpecificationUseCase: CreateSpecificationUseCase) {}
-  handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response) {
     const { name, description } = request.body;
     const createSpecificationUseCase = container.resolve(CreateSpecificationUseCase);
     try {
-      createSpecificationUseCase.execute({ name, description });
+      await createSpecificationUseCase.execute({ name, description });
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

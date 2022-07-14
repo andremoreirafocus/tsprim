@@ -8,7 +8,7 @@ export default class ListCategoriesUseCase implements IListCategoriesUseCase {
   constructor(@inject("CategoriesRepository") private categoriesRepository: ICategoriesRepository) {}
 
   async execute(): Promise<Category[]> {
-    const categories: Category[] = await this.categoriesRepository.get();
+    const categories = await this.categoriesRepository.get();
     return categories;
   }
 }

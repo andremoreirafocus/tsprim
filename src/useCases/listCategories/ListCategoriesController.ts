@@ -6,11 +6,10 @@ import { container } from "tsyringe";
 
 export default class ListCategoriesHandler {
   // constructor(private listCategoriesUseCase: IListCategoriesUseCase) {}
-
-  async handle(request: Request, response: Response): Promise<void> {
+  async handle(request: Request, response: Response) {
     // const categories: Category[] = await this.listCategoriesUseCase.execute();
     const listCategoriesUseCase = container.resolve(ListCategoriesUseCase)
     const categories: Category[] = await listCategoriesUseCase.execute();
-    response.json(categories);
+    return response.json(categories);
   }
 }

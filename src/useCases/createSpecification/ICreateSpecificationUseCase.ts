@@ -1,7 +1,7 @@
 import { ICreateSpecificationDTO } from "../../modules/cars/repositories/ISpecificationsRepository";
 
 interface ICreateSpecificationUseCase {
-  execute({ name, description }: ICreateSpecificationDTO): void;
+  execute({ name, description }: ICreateSpecificationDTO): Promise<void>;
 }
 
 export { ICreateSpecificationUseCase };
