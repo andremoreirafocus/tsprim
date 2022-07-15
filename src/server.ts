@@ -1,18 +1,13 @@
-import "./database/db";
+import connect from "./database/db";
 import "./shared/container";
-import express from "express";
-import { router } from "./routes";
-import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger.json";
+import App from "./app";
 
-const app = express();
+(async () => {
+  const app = new App();
+  await connect();
+  app.start();
+})();
 
-app.use(express.json());
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use(router);
 
-app.listen(3333, () => {
-  console.log("API started!");  
-});
