@@ -6,32 +6,40 @@ import ListCategoriesController from "../useCases/listCategories/ListCategoriesC
 import ImportCategoriesController from "../useCases/importCategories/ImportCategoriesController";
 import ListCategoriesUseCase from "../useCases/listCategories/ListCategoriesUseCase";
 import CreateCategoryUseCase from "../useCases/createCategory/CreateCategoryUseCase"
+import ImportCategoriesUseCase from "../useCases/importCategories/ImportCategoriesUseCase"
 
-export default class categoriesRouter {
+export default class CategoriesRouter {
   upload: multer.Multer;
-  categoriesRouter: Router;
+  router: Router;
   importCategoriesController: ImportCategoriesController;
   createCategoryController: CreateCategoryController;
   listCategoriesController: ListCategoriesController;
   constructor() {
     this.upload = multer({ dest: "uploads/" });
-    this.categoriesRouter = Router();
-    this.importCategoriesController = new ImportCategoriesController();
+    this.router = Router();
+    this.registerAndResolve();
+    this.addRoutes();
+  }
+  registerAndResolve(){
+    container.register<ImportCategoriesUseCase>("ImportCategoriesUseCase", ImportCategoriesUseCase);
     container.register<ListCategoriesUseCase>("ListCategoriesUseCase", ListCategoriesUseCase);
     container.register<CreateCategoryUseCase>("CreateCategoryUseCase", CreateCategoryUseCase);
     this.createCategoryController = container.resolve(CreateCategoryController);
     this.listCategoriesController = container.resolve(ListCategoriesController);
-    this.categoriesRouter.post("/", (request: Request, response: Response) => {
+    this.importCategoriesController = container.resolve(ImportCategoriesController);
+  }
+  addRoutes() {
+    this.router.post("/", (request: Request, response: Response) => {
       this.createCategoryController.handle(request, response);
     });
-    this.categoriesRouter.get("/", (request: Request, response: Response) => {
+    this.router.get("/", (request: Request, response: Response) => {
       this.listCategoriesController.handle(request, response);
     });
-    this.categoriesRouter.post(
+    this.router.post(
       "/import",
-      this.upload.single("uploaded_file"),
-      this.importCategoriesController.handle
-    );
+      this.upload.single("uploaded_file"),  (request: Request, response: Response) => {
+      this.importCategoriesController.handle(request, response);
+      });
   }
 }
 
