@@ -1,25 +1,23 @@
 import { Request, Response } from "express";
-import { container } from "tsyringe";
-// import Category from "../../modules/cars/entities/Category";
 import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
+import { container, inject, injectable } from "tsyringe";
+// import Category from "../../modules/cars/entities/Category";
 import ImportCategoriesUseCase from "./ImportCategoriesUseCase";
-// import { readFile } from "fs/promises";
-// import fs from "fs";
-// import { parse as csvParser } from "csv-parse";
 
+@injectable()
 export default class ImportCategoryController {
-  // constructor(private importCategoriesUseCase: IImportCategoriesUseCase) {}
+  constructor(@inject("ImportCategoriesUseCase") private importCategoriesUseCase: IImportCategoriesUseCase) {}
 
   async handle(request: Request, response: Response) {
     try {
-      const importCategoriesUseCase = container.resolve(ImportCategoriesUseCase)
+      // const importCategoriesUseCase = container.resolve(ImportCategoriesUseCase)
       const { file } = request;
       console.log(file);
-      // await this.importCategoriesUseCase.execute(file.path);
-      await importCategoriesUseCase.execute(file.path);
-      return response.status(201).send();
+      await this.importCategoriesUseCase.execute(file.path);
+      // await importCategoriesUseCase.execute(file.path);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
+    return response.status(201).send();
   }
 }

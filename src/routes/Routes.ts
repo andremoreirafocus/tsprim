@@ -7,7 +7,7 @@ export default class Routes  {
   constructor() {
     this.router = Router();
     const categoriesRouter = new CategoriesRouter();
-    this.router.use("/categories", categoriesRouter.categoriesRouter);    
+    this.router.use("/categories", categoriesRouter.router);    
     this.router.use("/specifications", specificationsRouter);
   }
 }
