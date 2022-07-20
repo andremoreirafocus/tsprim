@@ -37,7 +37,7 @@ export default class CategoriesRouter {
     });
     this.router.post(
       "/import",
-      this.upload.single("uploaded_file"),  (request: Request, response: Response) => {
+      this.upload.single("file"),  (request: Request, response: Response) => {
       this.importCategoriesController.handle(request, response);
       });
   }

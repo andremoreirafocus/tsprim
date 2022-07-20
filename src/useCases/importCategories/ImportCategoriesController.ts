@@ -16,7 +16,7 @@ export default class ImportCategoryController {
       await this.importCategoriesUseCase.execute(file.path);
       // await importCategoriesUseCase.execute(file.path);
     } catch (err) {
-      return response.status(400).json({ error: err.message });
+      return response.status(500).json({ error: err.message });
     }
     return response.status(201).send();
   }

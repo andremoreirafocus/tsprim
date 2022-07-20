@@ -9,6 +9,36 @@
     }
   },
   "paths": {
+    "/categories/import": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Imports categories",
+        "description": "Uploads a list of categories and imports them",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Category $name already exists!"
+          }
+        }
+      }
+    },
     "/categories": {
       "post": {
         "tags": ["Category"],
@@ -83,6 +113,81 @@
         }
       }
     },
-    "/specifications": {}
+    "/specifications": {
+      "post": {
+        "tags": ["Specification"],
+        "summary": "Creates a specification",
+        "description": "Creates a new specification",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                  "$ref":  "#/definitions/Specification"
+                }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Specification already exists!"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Specification"],
+        "summary": "Lists all specifications",
+        "description": "Lists all specifications",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "date"
+                      }
+                    }
+                  },
+                  "example": {
+                    "name": "specification name example",
+                    "description": "specification description example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
   }
 }
