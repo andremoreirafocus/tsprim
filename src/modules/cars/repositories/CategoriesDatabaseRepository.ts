@@ -1,6 +1,5 @@
 import Category from "../entities/Category";
 import { ICategoriesRepository } from "./ICategoriesRepository";
-
 import {getRepository, Repository} from "typeorm";
 
 interface ICreateCategoryDTO {
@@ -20,7 +19,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
       name,
       description,
     });
-    this.repository.save(category)
+    await this.repository.save(category)
     console.log(category);
   }
 

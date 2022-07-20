@@ -1,12 +1,6 @@
 import { v4 as uuid } from "uuid";
 import {Column, CreateDateColumn, Entity, PrimaryColumn} from "typeorm"
 
-interface ICategory {
-  id?: string;
-  name: string;
-  description: string;
-  created_at?: Date;
-}
 @Entity("categories")
 export default class Category {
   @PrimaryColumn()
