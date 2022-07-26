@@ -27,7 +27,7 @@ export default class User {
   @CreateDateColumn()
   created_at: Date;
 
-  constructor(name: string, username: string, password: string, email: string, driver_license: string, isAdmin: boolean ,id?: string) {
+  constructor(name: string, username: string, password: string, email: string, driver_license: string, isAdmin?: boolean ,id?: string) {
     if (!this.id) {
       this.id = uuid()
     }

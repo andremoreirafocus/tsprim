@@ -10,7 +10,7 @@ export default class CreateUserUseCase implements ICreateUserUseCase
   }
 
   async execute({ name, username, password, email, driver_license }: ICreateUserDTO): Promise<void> {
-    const userAlreadyExists = this.checkIfUserAlreadyExists(username)
+    const userAlreadyExists = await this.checkIfUserAlreadyExists(username)
     if (userAlreadyExists) {
       throw new Error("User already exists!");
     }

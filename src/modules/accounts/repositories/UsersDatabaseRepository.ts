@@ -9,7 +9,7 @@ export default class UsersDatabaseRepository implements IUsersRepository {
   constructor() {
     this.repository = getRepository(User);
   }
-  
+
   async create({name, username, password, email, driver_license}: ICreateUserDTO): Promise<void> {
     const user = this.repository.create({
       name,
@@ -27,8 +27,8 @@ export default class UsersDatabaseRepository implements IUsersRepository {
   }
 
   async findByUsername(username: string): Promise<User> {
-    const users = await this.repository.findOne(username);
-    return users;
+    const user = await this.repository.findOne({username});
+    return user;
   }
 
   update() {
