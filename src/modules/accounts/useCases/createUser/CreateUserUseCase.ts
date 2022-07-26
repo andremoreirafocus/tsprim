@@ -9,14 +9,13 @@ export default class CreateUserUseCase implements ICreateUserUseCase
   constructor(@inject("UsersRepository") private usersRepository: IUsersRepository) {
   }
 
-  async execute({ name, username, password, email, driver_license }: ICreateUserDTO): Promise<void> {
-    const userAlreadyExists = await this.checkIfUserAlreadyExists(username)
+  async execute({ name, password, email, driver_license }: ICreateUserDTO): Promise<void> {
+    const userAlreadyExists = await this.checkIfUserAlreadyExists(email)
     if (userAlreadyExists) {
       throw new Error("User already exists!");
     }
     await this.usersRepository.create({
       name, 
-      username, 
       password, 
       email, 
       driver_license,
@@ -24,7 +23,7 @@ export default class CreateUserUseCase implements ICreateUserUseCase
   }
 
   async checkIfUserAlreadyExists(username: string) {
-    const user = await this.usersRepository.findByUsername(username);
+    const user = await this.usersRepository.findByEmail(username);
     const alreadyExists = !!user;
     return alreadyExists;
   }

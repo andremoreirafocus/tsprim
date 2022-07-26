@@ -10,9 +10,6 @@ export default class User {
   name: string;
 
   @Column()
-  username: string;
-
-  @Column()
   password: string;
 
   @Column()
@@ -27,12 +24,11 @@ export default class User {
   @CreateDateColumn()
   created_at: Date;
 
-  constructor(name: string, username: string, password: string, email: string, driver_license: string, isAdmin?: boolean ,id?: string) {
+  constructor(name: string, password: string, email: string, driver_license: string, isAdmin?: boolean ,id?: string) {
     if (!this.id) {
       this.id = uuid()
     }
     this.name = name;
-    this.username = username;
     this.password = password;
     this.email = email;
     this.driver_license = driver_license;
