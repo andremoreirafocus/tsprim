@@ -1,10 +1,12 @@
+import { inject, injectable } from "tsyringe";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
 
+@injectable()
 export default class CreateUserUseCase implements ICreateUserUseCase
 {
-  constructor(private repository: IUsersRepository) {
+  constructor(@inject("UsersRepository") private usersRepository: IUsersRepository) {
   }
 
   async execute({ name, username, password, email, driver_license }: ICreateUserDTO): Promise<void> {
@@ -12,7 +14,7 @@ export default class CreateUserUseCase implements ICreateUserUseCase
     if (userAlreadyExists) {
       throw new Error("User already exists!");
     }
-    await this.repository.create({
+    await this.usersRepository.create({
       name, 
       username, 
       password, 
@@ -22,7 +24,8 @@ export default class CreateUserUseCase implements ICreateUserUseCase
   }
 
   async checkIfUserAlreadyExists(username: string) {
-    const userAlreadyExists = await this.repository.findByUsername(username);
-    return userAlreadyExists;
+    const user = await this.usersRepository.findByUsername(username);
+    const alreadyExists = !!user;
+    return alreadyExists;
   }
 }

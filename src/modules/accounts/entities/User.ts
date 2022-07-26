@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+
 @Entity("users")
 export default class User {
   @PrimaryColumn()
@@ -25,8 +26,9 @@ export default class User {
 
   @CreateDateColumn()
   created_at: Date;
+
   constructor(name: string, username: string, password: string, email: string, driver_license: string, isAdmin: boolean ,id?: string) {
-    if (!id) {
+    if (!this.id) {
       this.id = uuid()
     }
     this.name = name;
