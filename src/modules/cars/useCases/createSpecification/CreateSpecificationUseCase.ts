@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import {
   ICreateSpecificationDTO,
   ISpecificationsRepository,
-} from "../../modules/cars/repositories/ISpecificationsRepository";
+} from "../../repositories/ISpecificationsRepository";
 import { ICreateSpecificationUseCase } from "./ICreateSpecificationUseCase";
 
 @injectable()

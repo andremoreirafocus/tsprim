@@ -1,8 +1,8 @@
-import Category from "../../modules/cars/entities/Category";
+import Category from "../../entities/Category";
 import {
   ICategoriesRepository,
   // ICreateCategoryDTO,
-} from "../../modules/cars/repositories/ICategoriesRepository";
+} from "../../repositories/ICategoriesRepository";
 import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 
 import { promises as fsp } from "fs";

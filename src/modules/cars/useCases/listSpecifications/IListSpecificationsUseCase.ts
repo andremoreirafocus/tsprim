@@ -1,4 +1,4 @@
-import Category from "../../modules/cars/entities/Specification";
+import Category from "../../entities/Specification";
 
 interface IListSpecificationsUseCase {
   execute(): Promise<Category[]>;

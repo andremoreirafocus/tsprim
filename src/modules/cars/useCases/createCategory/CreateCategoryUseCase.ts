@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
-} from "../../modules/cars/repositories/ICategoriesRepository";
+} from "../../repositories/ICategoriesRepository";
 import { ICreateCategoryUseCase } from "./ICreateCategoryUseCase";
 
 @injectable()

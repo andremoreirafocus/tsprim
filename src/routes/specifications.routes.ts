@@ -1,9 +1,9 @@
 import { container } from "tsyringe";
 import { Router, Request, Response } from "express";
-import CreateSpecificationController from "../useCases/createSpecification/CreateSpecificationController";
-import ListCategoriesController from "../useCases/listSpecifications/ListSpecificationsController";
-import CreateSpecificationUseCase from "../useCases/createSpecification/CreateSpecificationUseCase"
-import ListSpecificationsUseCase from "../useCases/listSpecifications/ListSpecificationsUseCase"
+import CreateSpecificationController from "../modules/cars/useCases/createSpecification/CreateSpecificationController";
+import ListCategoriesController from "../modules/cars/useCases/listSpecifications/ListSpecificationsController";
+import CreateSpecificationUseCase from "../modules/cars/useCases/createSpecification/CreateSpecificationUseCase"
+import ListSpecificationsUseCase from "../modules/cars/useCases/listSpecifications/ListSpecificationsUseCase"
 
 export default class SpecificationsRouter{
   router: Router;

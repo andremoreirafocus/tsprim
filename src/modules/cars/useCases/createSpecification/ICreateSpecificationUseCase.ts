@@ -1,4 +1,4 @@
-import { ICreateSpecificationDTO } from "../../modules/cars/repositories/ISpecificationsRepository";
+import { ICreateSpecificationDTO } from "../../repositories/ISpecificationsRepository";
 
 interface ICreateSpecificationUseCase {
   execute({ name, description }: ICreateSpecificationDTO): Promise<void>;

@@ -1,4 +1,4 @@
-import { ICreateCategoryDTO } from "../../modules/cars/repositories/ICategoriesRepository";
+import { ICreateCategoryDTO } from "../../repositories/ICategoriesRepository";
 
 interface ICreateCategoryUseCase {
   execute({ name, description }: ICreateCategoryDTO): Promise<void>;

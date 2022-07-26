@@ -1,4 +1,4 @@
-import Category from "../../modules/cars/entities/Category";
+import Category from "../../entities/Category";
 import { Request, Response } from "express";
 import { IListCategoriesUseCase } from "./IListCategoriesUseCase";
 // import ListCategoriesUseCase from "./ListCategoriesUseCase";
