@@ -5,6 +5,7 @@ interface IUsersRepository {
   create(userProperties:ICreateUserDTO): Promise<void>
   get(): Promise<User[]>
   findByEmail(email: string): Promise<User>
+  findById(id: string): Promise<User>
   update()
   delete()
 

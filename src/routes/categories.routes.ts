@@ -7,6 +7,7 @@ import ImportCategoriesController from "../modules/cars/useCases/importCategorie
 import ListCategoriesUseCase from "../modules/cars/useCases/listCategories/ListCategoriesUseCase";
 import CreateCategoryUseCase from "../modules/cars/useCases/createCategory/CreateCategoryUseCase"
 import ImportCategoriesUseCase from "../modules/cars/useCases/importCategories/ImportCategoriesUseCase"
+import ensureAuthentication from "../middleware/ensureAuthentication";
 
 export default class CategoriesRouter {
   upload: multer.Multer;
@@ -29,6 +30,7 @@ export default class CategoriesRouter {
     this.importCategoriesController = container.resolve(ImportCategoriesController);
   }
   addRoutes() {
+    this.router.use(ensureAuthentication);
     this.router.post("/", (request: Request, response: Response) => {
       this.createCategoryController.handle(request, response);
     });
@@ -39,7 +41,7 @@ export default class CategoriesRouter {
       "/import",
       this.upload.single("file"),  (request: Request, response: Response) => {
       this.importCategoriesController.handle(request, response);
-      });
+    });
   }
 }
 

@@ -5,7 +5,7 @@ import { IAuthenticateUserDTO } from "../../dtos/IAuthenticateUserDTO";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { IAuthResponse, IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
 
-const MD5_HASH = "05c71bfcc63f122c5afeaec899d0c248";
+import config from "../../../../config"
 
 @injectable()
 export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase{
@@ -24,7 +24,7 @@ export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase
         // email,
         // name: user.name
       }, 
-      MD5_HASH,
+      config.auth.MD5_HASH,
       { subject: user.id,
         expiresIn: '1d' 
       }
