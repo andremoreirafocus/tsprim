@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import AppError from "../../../../errors/AppError";
 // import Category from "../../modules/cars/entities/Category";
 import {
   ICategoriesRepository,
@@ -13,8 +14,8 @@ export default class CreateCategoryUseCase implements ICreateCategoryUseCase {
   async execute({ name, description }: ICreateCategoryDTO): Promise<void> {
     const categoryAlreadyExists = await this.checkIfAlreadyExists(name);
     if (categoryAlreadyExists) {
-      // throw new Error("Category already exists!");
-      console.log(`Category ${name} already exists!`);
+      throw new AppError("Category already exists!");
+      // console.log(`Category ${name} already exists!`);
     }
 
     await this.categoriesRepository.create({ name, description });

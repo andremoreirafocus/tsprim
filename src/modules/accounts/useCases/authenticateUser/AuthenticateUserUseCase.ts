@@ -6,6 +6,7 @@ import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { IAuthResponse, IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
 
 import config from "../../../../config"
+import AppError from "../../../../errors/AppError";
 
 @injectable()
 export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase{
@@ -14,20 +15,13 @@ export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase
   async execute({email, password}: IAuthenticateUserDTO): Promise<IAuthResponse> {
     const user = await this.usersRepository.findByEmail(email);
     if (!user)
-      throw new Error("Invalid email or password!");
+      throw new AppError("Invalid email or password!", 401);
     const passwordIsValid = await compare(password, user.password)
     if (!passwordIsValid)
-      throw new Error("Invalid email or password!");
+      throw new AppError("Invalid email or password!", 401);
     
-    const token = sign(
-      {
-        // email,
-        // name: user.name
-      }, 
-      config.auth.MD5_HASH,
-      { subject: user.id,
-        expiresIn: '1d' 
-      }
+    const token = sign({}, config.auth.MD5_HASH,
+      { subject: user.id, expiresIn: '1d' }
     );
     console.log(token);
 
