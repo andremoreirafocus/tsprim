@@ -1,6 +1,6 @@
 import { container } from "tsyringe";
 import { Router, Request, Response } from "express";
-import multer from "multer";
+import multer, {Multer} from "multer";
 import CreateCategoryController from "../modules/cars/useCases/createCategory/CreateCategoryController";
 import ListCategoriesController from "../modules/cars/useCases/listCategories/ListCategoriesController";
 import ImportCategoriesController from "../modules/cars/useCases/importCategories/ImportCategoriesController";
@@ -10,7 +10,7 @@ import ImportCategoriesUseCase from "../modules/cars/useCases/importCategories/I
 import ensureAuthentication from "../middleware/ensureAuthentication";
 
 export default class CategoriesRouter {
-  upload: multer.Multer;
+  upload: Multer;
   router: Router;
   importCategoriesController: ImportCategoriesController;
   createCategoryController: CreateCategoryController;

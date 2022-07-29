@@ -6,9 +6,9 @@ interface IUsersRepository {
   get(): Promise<User[]>
   findByEmail(email: string): Promise<User>
   findById(id: string): Promise<User>
+  save(user: User): Promise<User>
   update()
   delete()
-
 }
 
 export { IUsersRepository }

@@ -42,4 +42,9 @@ export default class UsersDatabaseRepository implements IUsersRepository {
   delete() {
     throw new Error("Method not implemented.");
   }
+
+  async save(user: User): Promise<User> {
+    const savedUser = await this.repository.save(user);
+    return savedUser;
+  }
 }

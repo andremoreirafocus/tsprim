@@ -13,12 +13,16 @@ export default async function ensureAuthentication (request: Request, response: 
   console.log("tokens", token);
   try {
     console.log("verify");
+    // verifies the signature and extracts the user_id from the token
     const { sub: id } = verify(token, config.auth.MD5_HASH);
     console.log("verified");
     console.log(id);
     const user = await usersRepository.findById(id.toString());
     if (!user) {
       throw new AppError("Authorization is required!", 401);
+    }
+    request.user = {
+      id: user.id
     }
     next();
   } catch (err) {

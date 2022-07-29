@@ -9,8 +9,8 @@ export default class AuthenticateUserController {
   async handle(request: Request, response: Response) {
     const {email, password} = request.body;
     try {
-      const token = await this.authenticateUserUseCase.execute({email, password});
-      return response.status(200).json(token);
+      const responseToken = await this.authenticateUserUseCase.execute({email, password});
+      return response.status(200).json(responseToken);
     } catch (err) {
       return response.status(500).send(err.message);
     }

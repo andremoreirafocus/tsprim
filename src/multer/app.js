@@ -8,8 +8,7 @@ app.use("/", express.static("."));
 
 app.post("/doupload", upload.single("uploaded_file"), function (
   req,
-  res,
-  next
+  res
 ) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any

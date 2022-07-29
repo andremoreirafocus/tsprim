@@ -1,9 +1,8 @@
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-import { IAuthenticateUserDTO } from "../../dtos/IAuthenticateUserDTO";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { IAuthResponse, IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
+import { IAuthenticateUserResponse, IAuthenticateUserRequest, IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
 
 import config from "../../../../config"
 import AppError from "../../../../errors/AppError";
@@ -12,7 +11,7 @@ import AppError from "../../../../errors/AppError";
 export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase{
   constructor(@inject("UsersRepository") private usersRepository: IUsersRepository){}
 
-  async execute({email, password}: IAuthenticateUserDTO): Promise<IAuthResponse> {
+  async execute({email, password}: IAuthenticateUserRequest): Promise<IAuthenticateUserResponse> {
     const user = await this.usersRepository.findByEmail(email);
     if (!user)
       throw new AppError("Invalid email or password!", 401);
@@ -35,7 +34,4 @@ export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase
     console.log(authReponse);
     return authReponse;
   }
-
-
-
 }

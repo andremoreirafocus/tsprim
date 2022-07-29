@@ -1,6 +1,9 @@
-import { IAuthenticateUserDTO } from "../../dtos/IAuthenticateUserDTO";
+interface IAuthenticateUserRequest {
+  email: string,
+  password: string
+}
 
-interface IAuthResponse {
+interface IAuthenticateUserResponse {
   user: {
     email:string;
     name: string;
@@ -9,7 +12,7 @@ interface IAuthResponse {
 }
 
 interface IAuthenticateUserUseCase {
-  execute({email, password}: IAuthenticateUserDTO): Promise<IAuthResponse>
+  execute({email, password}: IAuthenticateUserRequest): Promise<IAuthenticateUserResponse>
 }
 
-export { IAuthenticateUserUseCase, IAuthResponse }
+export { IAuthenticateUserUseCase, IAuthenticateUserResponse, IAuthenticateUserRequest }
