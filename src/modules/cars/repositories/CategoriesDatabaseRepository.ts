@@ -20,7 +20,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
       description,
     });
     await this.repository.save(category)
-    console.log(category);
+    // console.log(category);
   }
 
   async get(): Promise<Category[]> {
@@ -30,7 +30,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
 
   async findByName(name: string): Promise<Category> {
     const category = this.repository.findOne({name});
-    console.log(`procurando categoria ${name}`);
+    // console.log(`procurando categoria ${name}`);
     return category;
   }
 

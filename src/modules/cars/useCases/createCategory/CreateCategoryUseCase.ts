@@ -15,6 +15,7 @@ export default class CreateCategoryUseCase implements ICreateCategoryUseCase {
     const categoryAlreadyExists = await this.checkIfAlreadyExists(name);
     if (categoryAlreadyExists) {
       throw new AppError("Category already exists!");
+      // throw new Error("Category already exists!");
       // console.log(`Category ${name} already exists!`);
     }
 

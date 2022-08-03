@@ -11,7 +11,9 @@ export default class CategoriesRepository implements ICategoriesRepository {
 
   private static INSTANCE: CategoriesRepository;
 
-  private constructor() {
+  // private constructor() {
+  // use when you do not want a singleton instance
+  constructor() {
     this.categories = [];
   }
 
@@ -30,7 +32,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
       created_at,
     );
     this.categories.push(category);
-    console.log(this.categories);
+    // console.log(this.categories);
   }
 
   async get(): Promise<Category[]> {
@@ -39,7 +41,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
 
   async findByName(name: string): Promise<Category> {
     const category = this.categories.find((category) => category.name === name);
-    console.log(`procurando categoria ${name}`);
+    // console.log(`procurando categoria ${name}`);
     return category;
   }
 
