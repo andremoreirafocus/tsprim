@@ -8,7 +8,8 @@ import {ICreateUserUseCase} from "../modules/accounts/useCases/createUser/ICreat
 import UpdateAvatarController from "../modules/accounts/useCases/updateAvatar/UpdateAvatarController";
 import {IUpdateAvatarUseCase} from "../modules/accounts/useCases/updateAvatar/IUpdateAvatarUseCase";
 import UpdateAvatarUseCase from "../modules/accounts/useCases/updateAvatar/UpdateAvatarUseCase";
-import ensureAuthentication from "../middleware/ensureAuthentication";
+// import ensureAuthentication from "../middleware/ensureAuthentication";
+import EnsureAuthentication from "../middleware/EnsureAuthetication/EnsureAuthetication"
 import config from "../config";
 
 export default class UsersRouter {
@@ -16,15 +17,16 @@ export default class UsersRouter {
   router: Router;
   createUserController: CreateUserController;
   updateAvatarController: UpdateAvatarController;
+  ensureAuthentication: EnsureAuthentication;
   constructor() {
-    // this.upload = multer({ dest: "avatars/"})
     this.fileUploader = fileUploader(config.avatarFolder);
     this.router = Router();
     this.registerAndResolve();
     this.addRoutes();
   }
-
+  
   registerAndResolve(){
+    this.ensureAuthentication = container.resolve(EnsureAuthentication);
     container.register<ICreateUserUseCase>("CreateUserUseCase", CreateUserUseCase);
     this.createUserController = container.resolve(CreateUserController);
     container.register<IUpdateAvatarUseCase>("UpdateAvatarUseCase", UpdateAvatarUseCase)
@@ -32,7 +34,7 @@ export default class UsersRouter {
   }
 
   addRoutes() {
-    this.router.use(ensureAuthentication);
+    this.router.use(this.ensureAuthentication.handle);
     this.router.post("/", (request: Request, response: Response) => {
       this.createUserController.handle(request, response);
     });
