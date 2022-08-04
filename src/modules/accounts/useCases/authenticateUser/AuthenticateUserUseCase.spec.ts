@@ -1,11 +1,17 @@
-import UsersMemoryRepository from "../modules/accounts/repositories/UsersMemoryRepository";
-import { IUsersRepository } from "../modules/accounts/repositories/IUsersRepository";
+import UsersMemoryRepository from "../../repositories/UsersMemoryRepository";
+import { IUsersRepository } from "../../repositories/IUsersRepository";
+import AuthenticateUserUseCase from "./AuthenticateUserUseCase";
+import {IAuthenticateUserUseCase} from "./IAuthenticateUserUseCase";
+import {createHashPassword} from "../../../../middleware/createHashPassword"
+import {validateAuthToken} from "../../../../middleware/validateAuthToken";
 
 let usersMemoryRepository: IUsersRepository;
+let authenticateUserUseCase: IAuthenticateUserUseCase;
 
 describe("", () => {
   beforeEach(()=>{
     usersMemoryRepository = new UsersMemoryRepository();
+    authenticateUserUseCase = new AuthenticateUserUseCase(usersMemoryRepository);
   });
 
   it("User memory repository methods should return accordingly", async () => {
@@ -41,5 +47,27 @@ describe("", () => {
     const user4 = await usersMemoryRepository.findById(user3.id)
     console.log("user4", user4);
     expect(user4.id).toBe(user3.id);
-  })
+  });
+
+  it("Should generate a valid token", async () => {
+    const typedPassword = "123456"
+    const userDTO = {
+        name: "trelele",
+        email: "a@a.com", 
+        password: await createHashPassword(typedPassword),
+        driver_license: "GHKJGJK234"
+    }
+    await usersMemoryRepository.create(userDTO);
+    const user = await usersMemoryRepository.findByEmail(userDTO.email);
+    console.log(user);
+    const authResponse = await authenticateUserUseCase.execute({
+        email:userDTO.email, 
+        password: typedPassword
+    });
+    console.log(authResponse);
+    expect(authResponse.user.name).toBe(user.name);
+    expect(authResponse.user.email).toBe(user.email);
+    const id = validateAuthToken(authResponse.token);
+    expect(id).toBe(user.id);
+  });
 }) 

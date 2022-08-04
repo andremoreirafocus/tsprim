@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
-import { hash } from "bcrypt"
+import { createHashPassword } from "../../../../middleware/createHashPassword";
 import AppError from "../../../../errors/AppError";
 
 @injectable()
@@ -16,8 +16,7 @@ export default class CreateUserUseCase implements ICreateUserUseCase
     if (userAlreadyExists) {
       throw new AppError("User already exists!");
     }
-    const salt = 8;
-    const hashPassword = await hash(password, salt)
+    const hashPassword = await createHashPassword(password);
     await this.usersRepository.create({
       name, 
       password: hashPassword, 

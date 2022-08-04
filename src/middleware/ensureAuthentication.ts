@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken"
-import config from "../config"
+// import { verify } from "jsonwebtoken"
+// import config from "../config";
 import AppError from "../errors/AppError"
 import UsersDatabaseRepository from "../modules/accounts/repositories/UsersDatabaseRepository";
+import { validateAuthToken } from "./validateAuthToken";
 
 export default async function ensureAuthentication (request: Request, response: Response, next: NextFunction)  {
   const usersRepository = new UsersDatabaseRepository();
@@ -14,11 +15,13 @@ export default async function ensureAuthentication (request: Request, response: 
   try {
     console.log("verify");
     // verifies the signature and extracts the user_id from the token
-    const { sub: id } = verify(token, config.auth.MD5_HASH);
+    // const { sub: id } = verify(token, config.auth.MD5_HASH);
+    const id = validateAuthToken(token);
     console.log("verified");
     console.log(id);
     const user = await usersRepository.findById(id.toString());
     if (!user) {
+      console.log("user not found");
       throw new AppError("Authorization is required!", 401);
     }
     request.user = {
@@ -26,6 +29,7 @@ export default async function ensureAuthentication (request: Request, response: 
     }
     next();
   } catch (err) {
+    console.log(err);
     throw new AppError("Authorization is required!", 401);
   }
 }
