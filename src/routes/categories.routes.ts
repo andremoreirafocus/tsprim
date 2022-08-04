@@ -7,7 +7,6 @@ import ImportCategoriesController from "../modules/cars/useCases/importCategorie
 import ListCategoriesUseCase from "../modules/cars/useCases/listCategories/ListCategoriesUseCase";
 import CreateCategoryUseCase from "../modules/cars/useCases/createCategory/CreateCategoryUseCase"
 import ImportCategoriesUseCase from "../modules/cars/useCases/importCategories/ImportCategoriesUseCase"
-// import ensureAuthentication from "../middleware/ensureAuthentication";
 import EnsureAuthentication from "../middleware/EnsureAuthetication/EnsureAuthetication"
 
 export default class CategoriesRouter {
@@ -20,12 +19,11 @@ export default class CategoriesRouter {
   constructor() {
     this.upload = multer({ dest: "uploads/" });
     this.router = Router();
-    // this.ensureAuthentication = new EnsureAuthentication();
-    this.ensureAuthentication = container.resolve(EnsureAuthentication);
     this.registerAndResolve();
     this.addRoutes();
   }
   registerAndResolve(){
+    this.ensureAuthentication = container.resolve(EnsureAuthentication);
     container.register<ImportCategoriesUseCase>("ImportCategoriesUseCase", ImportCategoriesUseCase);
     container.register<ListCategoriesUseCase>("ListCategoriesUseCase", ListCategoriesUseCase);
     container.register<CreateCategoryUseCase>("CreateCategoryUseCase", CreateCategoryUseCase);
