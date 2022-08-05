@@ -1,19 +1,26 @@
 import UsersMemoryRepository from "../../repositories/UsersMemoryRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import AuthenticateUserUseCase from "./AuthenticateUserUseCase";
-import {IAuthenticateUserUseCase} from "./IAuthenticateUserUseCase";
-import {createHashPassword} from "../../../../middleware/createHashPassword"
-import {validateAuthToken} from "../../../../middleware/validateAuthToken";
+import { IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
+import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
+import { createHashPassword } from "../../../../middleware/createHashPassword"
+import { validateAuthToken } from "../../../../middleware/validateAuthToken";
+import { ICreateUserUseCase } from "../createUser/ICreateUserUseCase";
+import CreateUserUseCase from "../createUser/CreateUserUseCase";
+import AppError from "../../../../errors/AppError";
 
 let usersMemoryRepository: IUsersRepository;
 let authenticateUserUseCase: IAuthenticateUserUseCase;
+let createUserUseCase: ICreateUserUseCase;
 
 describe("", () => {
   beforeEach(()=>{
     usersMemoryRepository = new UsersMemoryRepository();
     authenticateUserUseCase = new AuthenticateUserUseCase(usersMemoryRepository);
+    createUserUseCase = new CreateUserUseCase(usersMemoryRepository);
   });
 
+  // this teste is here temporarily and should be moved to repositories 
   it("User memory repository methods should return accordingly", async () => {
     const user1 = {
       name: "andre",
@@ -49,9 +56,9 @@ describe("", () => {
     expect(user4.id).toBe(user3.id);
   });
 
-  it("Should generate a valid token", async () => {
+  it.skip("Should generate a valid token", async () => {
     const typedPassword = "123456"
-    const userDTO = {
+    const userDTO: ICreateUserDTO = {
         name: "trelele",
         email: "a@a.com", 
         password: await createHashPassword(typedPassword),
@@ -59,15 +66,66 @@ describe("", () => {
     }
     await usersMemoryRepository.create(userDTO);
     const user = await usersMemoryRepository.findByEmail(userDTO.email);
-    console.log(user);
+    // console.log(user);
     const authResponse = await authenticateUserUseCase.execute({
         email:userDTO.email, 
         password: typedPassword
     });
-    console.log(authResponse);
+    // console.log(authResponse);
     expect(authResponse.user.name).toBe(user.name);
     expect(authResponse.user.email).toBe(user.email);
+    expect(authResponse).toHaveProperty("token");
     const id = validateAuthToken(authResponse.token);
     expect(id).toBe(user.id);
   });
+
+  it("Should be able to authenticate an existing user", async () => {
+    const userDTO: ICreateUserDTO = {
+        name: "trelele",
+        email: "a@a.com", 
+        password: "123456",
+        driver_license: "GHKJGJK234"
+    }
+    await createUserUseCase.execute(userDTO);
+    const user = await usersMemoryRepository.findByEmail(userDTO.email);
+    const authResponse = await authenticateUserUseCase.execute({
+        email:userDTO.email, 
+        password: userDTO.password,
+    });
+    expect(authResponse.user.name).toBe(userDTO.name);
+    expect(authResponse.user.email).toBe(userDTO.email);
+    expect(authResponse).toHaveProperty("token");
+    const extracted_id = validateAuthToken(authResponse.token);
+    expect(extracted_id).toBe(user.id);
+  });
+
+  it("Should not be able to authenticate a nonexisting user", async () => {
+    await expect(async ()=> {
+      await authenticateUserUseCase.execute({
+          email:"a@doesnotoexist.com", 
+          password: "doesnotexist",
+      });
+    }).rejects.toBeInstanceOf(AppError);
+  });
+
+  it("Should not be able to authenticate an existing user with wrong password", async () => {
+    await expect(async ()=> {
+      const userDTO: ICreateUserDTO = {
+        name: "trelele",
+        email: "a@a.com", 
+        password: "123456",
+        driver_license: "GHKJGJK234"
+      }
+      await createUserUseCase.execute(userDTO);
+      await usersMemoryRepository.findByEmail(userDTO.email);
+      await authenticateUserUseCase.execute({
+          email:userDTO.email, 
+          password: "wrongpassword",
+      });
+    }).rejects.toBeInstanceOf(AppError);
+  });
+
+
+
+
 }) 

@@ -1,9 +1,9 @@
 import { compare } from "bcrypt";
+import AppError from "../../../../errors/AppError";
 import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { IAuthenticateUserResponse, IAuthenticateUserRequest, IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
 import { createAuthToken } from "../../../../middleware/createAuthToken"
-import AppError from "../../../../errors/AppError";
 
 @injectable()
 export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase{

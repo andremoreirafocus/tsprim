@@ -1,6 +1,6 @@
 import { container } from "tsyringe";
 import { Router, Request, Response } from "express";
-import multer, {Multer} from "multer";
+import { fileUploader, FileUploader } from "../middleware/fileAPI";
 import CreateCategoryController from "../modules/cars/useCases/createCategory/CreateCategoryController";
 import ListCategoriesController from "../modules/cars/useCases/listCategories/ListCategoriesController";
 import ImportCategoriesController from "../modules/cars/useCases/importCategories/ImportCategoriesController";
@@ -8,16 +8,17 @@ import ListCategoriesUseCase from "../modules/cars/useCases/listCategories/ListC
 import CreateCategoryUseCase from "../modules/cars/useCases/createCategory/CreateCategoryUseCase"
 import ImportCategoriesUseCase from "../modules/cars/useCases/importCategories/ImportCategoriesUseCase"
 import EnsureAuthentication from "../middleware/EnsureAuthetication/EnsureAuthetication"
+import config from "../config";
 
 export default class CategoriesRouter {
-  upload: Multer;
+  fileUploader: FileUploader;
   router: Router;
   importCategoriesController: ImportCategoriesController;
   createCategoryController: CreateCategoryController;
   listCategoriesController: ListCategoriesController;
   ensureAuthentication: EnsureAuthentication;
   constructor() {
-    this.upload = multer({ dest: "uploads/" });
+    this.fileUploader = fileUploader(config.importCategoriesFolder);
     this.router = Router();
     this.registerAndResolve();
     this.addRoutes();
@@ -41,7 +42,7 @@ export default class CategoriesRouter {
     });
     this.router.post(
       "/import",
-      this.upload.single("file"),  (request: Request, response: Response) => {
+      this.fileUploader.single("file"),  (request: Request, response: Response) => {
       this.importCategoriesController.handle(request, response);
     });
   }

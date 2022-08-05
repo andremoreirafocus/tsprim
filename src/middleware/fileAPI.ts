@@ -1,9 +1,11 @@
-import multer from "multer";
+import multer, { Multer } from "multer";
 import {resolve} from "path";
 import crypto from "crypto";
 import {promises as fsp} from "fs";
 
 const HASH_SIZE = 16;
+type FileUploader = Multer;
+
 function fileUploader(folder: string) {
   return multer({
     storage: multer.diskStorage({
@@ -27,4 +29,4 @@ async function fileRemove(folder: string, fileName: string) {
   }
 }
 
-export { fileUploader, fileRemove }
+export { fileUploader, FileUploader, fileRemove }

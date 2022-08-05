@@ -1,6 +1,5 @@
-import {container} from "tsyringe";
-import {Multer}  from "multer";
-import {fileUploader} from "../middleware/fileAPI"
+import { container } from "tsyringe";
+import { fileUploader, FileUploader } from "../middleware/fileAPI";
 import { Request, Response, Router } from "express";
 import CreateUserController from "../modules/accounts/useCases/createUser/CreateUserController";
 import CreateUserUseCase from "../modules/accounts/useCases/createUser/CreateUserUseCase";
@@ -8,12 +7,11 @@ import {ICreateUserUseCase} from "../modules/accounts/useCases/createUser/ICreat
 import UpdateAvatarController from "../modules/accounts/useCases/updateAvatar/UpdateAvatarController";
 import {IUpdateAvatarUseCase} from "../modules/accounts/useCases/updateAvatar/IUpdateAvatarUseCase";
 import UpdateAvatarUseCase from "../modules/accounts/useCases/updateAvatar/UpdateAvatarUseCase";
-// import ensureAuthentication from "../middleware/ensureAuthentication";
 import EnsureAuthentication from "../middleware/EnsureAuthetication/EnsureAuthetication"
 import config from "../config";
 
 export default class UsersRouter {
-  fileUploader: Multer
+  fileUploader: FileUploader;
   router: Router;
   createUserController: CreateUserController;
   updateAvatarController: UpdateAvatarController;
