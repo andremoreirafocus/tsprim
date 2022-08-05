@@ -1,6 +1,6 @@
-import User from "../entities/User";
-import { IUsersRepository} from "./IUsersRepository";
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO"
+import User from "../../entities/User";
+import { IUsersRepository} from "../../entities/IUsersRepository";
+import { ICreateUserDTO } from "../../dtos/ICreateUserDTO"
 
 export default class UsersMemoryRepository implements IUsersRepository {
   users: User[];

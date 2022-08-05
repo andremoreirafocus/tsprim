@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
 import { container } from "tsyringe";
-import AuthenticateUserController from "../modules/accounts/useCases/authenticateUser/AuthenticateUserController";
-import AuthenticateUserUseCase from "../modules/accounts/useCases/authenticateUser/AuthenticateUserUseCase";
-import { IAuthenticateUserUseCase } from "../modules/accounts/useCases/authenticateUser/IAuthenticateUserUseCase";
+import AuthenticateUserController from "../../../../modules/accounts/useCases/authenticateUser/AuthenticateUserController";
+import AuthenticateUserUseCase from "../../../../modules/accounts/useCases/authenticateUser/AuthenticateUserUseCase";
+import { IAuthenticateUserUseCase } from "../../../../modules/accounts/useCases/authenticateUser/IAuthenticateUserUseCase";
 
 export default class AuthenticationRouter {
   router: Router

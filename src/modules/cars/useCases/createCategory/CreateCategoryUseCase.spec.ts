@@ -1,7 +1,7 @@
-import CategoriesMemoryRepository from "../../repositories/CategoriesMemoryRepository";
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+import CategoriesMemoryRepository from "../../infra/repositories/CategoriesMemoryRepository";
+import { ICategoriesRepository } from "../../entities/ICategoriesRepository";
 import CreateCategoryUseCase from "./CreateCategoryUseCase";
-import AppError from "../../../../errors/AppError"
+import AppError from "../../../../shared/errors/AppError"
 
 let categoriesRepository: ICategoriesRepository;
 let createCategoryUseCase: CreateCategoryUseCase;

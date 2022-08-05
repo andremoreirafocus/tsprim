@@ -1,13 +1,13 @@
-import UsersMemoryRepository from "../../repositories/UsersMemoryRepository";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
+import UsersMemoryRepository from "../../infra/repositories/UsersMemoryRepository";
+import { IUsersRepository } from "../../entities/IUsersRepository";
 import AuthenticateUserUseCase from "./AuthenticateUserUseCase";
 import { IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { createHashPassword } from "../../../../middleware/createHashPassword"
-import { validateAuthToken } from "../../../../middleware/validateAuthToken";
+import { createHashPassword } from "../../../../shared/infra/http/middleware/createHashPassword"
+import { validateAuthToken } from "../../../../shared/infra/http/middleware/validateAuthToken";
 import { ICreateUserUseCase } from "../createUser/ICreateUserUseCase";
 import CreateUserUseCase from "../createUser/CreateUserUseCase";
-import AppError from "../../../../errors/AppError";
+import AppError from "../../../../shared/errors/AppError";
 
 let usersMemoryRepository: IUsersRepository;
 let authenticateUserUseCase: IAuthenticateUserUseCase;

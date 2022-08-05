@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import AppError from "../../errors/AppError"
-import { IUsersRepository } from "../../modules/accounts/repositories/IUsersRepository";
+import AppError from "../../../../errors/AppError"
+import { IUsersRepository } from "../../../../../modules/accounts/entities/IUsersRepository";
 import { validateAuthToken } from "../validateAuthToken";
 import { inject, injectable } from "tsyringe";
 

@@ -1,5 +1,5 @@
-import Category from "../entities/Category";
-import { ICategoriesRepository } from "./ICategoriesRepository";
+import Category from "../../entities/Category";
+import { ICategoriesRepository } from "../../entities/ICategoriesRepository";
 
 interface ICreateCategoryDTO {
   name: string;

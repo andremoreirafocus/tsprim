@@ -1,5 +1,5 @@
 import { sign } from "jsonwebtoken";
-import config from "../config"
+import config from "../../../config"
 
 const createAuthToken = (user_id) => {
   return sign({}, config.auth.MD5_HASH,

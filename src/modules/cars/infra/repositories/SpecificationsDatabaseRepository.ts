@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
-import Specification from "../entities/Specification";
-import { ISpecificationsRepository } from "./ISpecificationsRepository";
+import Specification from "../../entities/Specification";
+import { ISpecificationsRepository } from "../../entities/ISpecificationsRepository";
 
 interface ICreateSpecificationDTO {
   name: string;

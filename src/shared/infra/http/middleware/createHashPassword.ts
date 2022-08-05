@@ -1,5 +1,5 @@
 import { hash } from "bcrypt"
-import config from "../config"
+import config from "../../../config"
 
 const createHashPassword = async (password) => {
   const salt = config.auth.SALT;

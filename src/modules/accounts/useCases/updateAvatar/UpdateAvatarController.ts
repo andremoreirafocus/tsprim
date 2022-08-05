@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { inject, injectable } from "tsyringe";
-import AppError from "../../../../errors/AppError";
+import AppError from "../../../../shared/errors/AppError";
 import updateAvatarUseCase from "./UpdateAvatarUseCase";
 
 @injectable()

@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
+import { IUsersRepository } from "../../entities/IUsersRepository";
 import { ICreateUserUseCase } from "./ICreateUserUseCase";
-import { createHashPassword } from "../../../../middleware/createHashPassword";
-import AppError from "../../../../errors/AppError";
+import { createHashPassword } from "../../../../shared/infra/http/middleware/createHashPassword";
+import AppError from "../../../../shared/errors/AppError";
 
 @injectable()
 export default class CreateUserUseCase implements ICreateUserUseCase

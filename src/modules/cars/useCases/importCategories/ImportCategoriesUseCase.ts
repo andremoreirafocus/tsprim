@@ -2,7 +2,7 @@ import Category from "../../entities/Category";
 import {
   ICategoriesRepository,
   // ICreateCategoryDTO,
-} from "../../repositories/ICategoriesRepository";
+} from "../../entities/ICategoriesRepository";
 import { IImportCategoriesUseCase } from "./IImportCategoriesUseCase";
 
 import { promises as fsp } from "fs";

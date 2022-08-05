@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
-import AppError from "../../../../errors/AppError";
+import AppError from "../../../../shared/errors/AppError";
 import { IUpdateAvatarRequest, IUpdateAvatarUseCase } from "./IUpdateAvatarUseCase";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { fileRemove } from "../../../../middleware/fileAPI";
-import config from "../../../../config";
+import { IUsersRepository } from "../../entities/IUsersRepository";
+import { fileRemove } from "../../../../shared/infra/http/middleware/fileAPI";
+import config from "../../../../shared/config";
 
 @injectable()
 export default class updateAvatarUseCase implements IUpdateAvatarUseCase {

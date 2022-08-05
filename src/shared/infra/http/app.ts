@@ -2,8 +2,8 @@ import express, {Express, NextFunction, Request, Response} from "express";
 import "express-async-errors";
 import Routes from "./routes/Routes";
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger.json";
-import AppError from "./errors/AppError";
+import swaggerDocument from "../../../swagger.json";
+import AppError from "../../errors/AppError";
 
 export default class App {
   app: Express;

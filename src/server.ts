@@ -1,6 +1,6 @@
-import connect from "./database/db";
+import connect from "./shared/infra/database/db";
 import "./shared/container";
-import App from "./app";
+import App from "./shared/infra/http/app";
 
 (async () => {
   const app = new App();
