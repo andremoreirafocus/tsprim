@@ -22,7 +22,7 @@ export class CreateCars1660002671918 implements MigrationInterface {
                     },
                     {
                         name: "daily_rate",
-                        type: "float",
+                        type: "numeric",
                     },
                     {
                         name: "available",
@@ -35,45 +35,38 @@ export class CreateCars1660002671918 implements MigrationInterface {
                     },
                     {
                         name: "fine_amount",
-                        type: "float",
+                        type: "numeric",
                     },
                     {
                         name: "brand",
-                        type: "string",
+                        type: "varchar",
+                    },
+                    {
+                        name: "category_id",
+                        type: "uuid",
+                        isNullable: true, 
                     },
                     {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()",
                     }
+                ],
+                foreignKeys: [
+                    {
+                        name: "FKCategoryCar",
+                        columnNames: ["category_id"],
+                        referencedColumnNames: ["id"],
+                        referencedTableName: "categories",
+                        onDelete: "SET NULL",
+                        onUpdate : "SET NULL",
+                    }
                 ]
-            })
-        );
-        await queryRunner.addColumn(
-            "cars",
-            new TableColumn({
-                name: "categoryId",
-                type: "string",
-            })
-        );
-        await queryRunner.createForeignKey(
-            "cars",
-            new TableForeignKey({
-                columnNames: ["categoryId"],
-                referencedColumnNames: ["id"],
-                referencedTableName: "categories",
-                onDelete: "CASCADE",
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        const table = await queryRunner.getTable("cars");
-        const foreignKey = table.foreignKeys.find(
-            (fk) => fk.columnNames.indexOf("categoryId") !== -1
-        );
-        await queryRunner.dropForeignKey("cars", foreignKey);
-        await queryRunner.dropColumn("cars", "categoryId");
         await queryRunner.dropTable("cars");
     }
 }
