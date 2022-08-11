@@ -1,59 +1,63 @@
 import {v4 as uuid} from "uuid";
-import { Column, CreateDateColumn, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
+// import { Column, CreateDateColumn, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
 import Category from "./Category";
 
 export default class Car {
-  @PrimaryColumn()
+  // @PrimaryColumn()
   id: string;
 
-  @Column()
+  // @Column()
   name: string;
 
-  @Column()
+  // @Column()
   description: string;0
 
-  @Column()
+  // @Column()
   daily_rate: number;
 
-  @Column()
+  // @Column()
   available: boolean;
 
-  @Column()
+  // @Column()
   license_plate: string;
 
-  @Column()
+  // @Column()
   fine_amount: number;
 
-  @Column()
+  // @Column()
   brand: string;
 
-  @OneToOne(() => Category)
-  @JoinColumn()
-  category: Category;
+  // @OneToOne(() => Category)
+  // @JoinColumn()
+  // category: Category;
+  category_id: string;
 
-  @CreateDateColumn()
+  // @CreateDateColumn()
   created_at: Date;
 
   constructor(
-      name: string, 
-      description: string, 
-      daily_rate: number,
-      available: true,
-      license_plate: string,
-      fine_amount: number,
-      created_at: Date,
-      id?:string) {
-        if (!this.id)
-          this.id = uuid()
-        else 
-          this.id = id;
-        this.name = name; 
-        this.description = description; 
-        this.daily_rate = daily_rate;
-        this.available = available;
-        this.license_plate = license_plate;
-        this.fine_amount = fine_amount;
-        this.created_at = created_at;
-      }
+    name: string, 
+    description: string, 
+    daily_rate: number,
+    license_plate: string,
+    fine_amount: number,
+    brand: string,
+    category_id: string,
+    id?:string) {
+    if (!this.id) {
+      this.id = uuid()
+      this.available = true;
+      this.created_at = new Date();
+    }
+    else 
+      this.id = id;
+    this.name = name; 
+    this.description = description; 
+    this.daily_rate = daily_rate;
+    this.license_plate = license_plate;
+    this.fine_amount = fine_amount;
+    this.brand = brand;
+    this.category_id = category_id;
+  }
       
 }

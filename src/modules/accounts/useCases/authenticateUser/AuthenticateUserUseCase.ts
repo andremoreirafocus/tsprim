@@ -12,18 +12,18 @@ export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase
   async execute({email, password}: IAuthenticateUserRequest): Promise<IAuthenticateUserResponse> {
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
-      console.log("user not found!");
+      // console.log("user not found!");
       throw new AppError("Invalid email or password!", 401);
     }
     const passwordIsValid = await compare(password, user.password)
     if (!passwordIsValid) {
-      console.log("password mismatch!");
+      // console.log("password mismatch!");
       throw new AppError("Invalid email or password!", 401);
     }
     
     const token = createAuthToken(user.id);
 
-    console.log(token);
+    // console.log(token);
 
     const authReponse = {
       user: {
@@ -32,7 +32,7 @@ export default class AuthenticateUserUseCase implements IAuthenticateUserUseCase
       },
       token
     }
-    console.log(authReponse);
+    // console.log(authReponse);
     return authReponse;
   }
 }
