@@ -1,5 +1,5 @@
 import AppError from "../../../../shared/errors/AppError";
-import CarsMemoryRepository from "../../infra/repositories/CarsRepository-InMemory";
+import CarsMemoryRepository from "../../infra/repositories/CarsRepositoryInMemory";
 import CreateCarUseCase from "./CreateCarUseCase";
 
 let createCarUseCase: CreateCarUseCase;

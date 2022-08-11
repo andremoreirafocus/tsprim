@@ -3,7 +3,7 @@ import User from "../../entities/User";
 import { IUsersRepository} from "../../entities/IUsersRepository";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO"
 
-export default class UsersDatabaseRepository implements IUsersRepository {
+export default class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
   constructor() {

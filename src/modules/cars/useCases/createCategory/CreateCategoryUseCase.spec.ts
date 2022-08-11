@@ -1,4 +1,4 @@
-import CategoriesMemoryRepository from "../../infra/repositories/CategoriesRepository-InMemory";
+import CategoriesMemoryRepository from "../../infra/repositories/CategoriesRepositoryInMemory";
 import { ICategoriesRepository } from "../../entities/ICategoriesRepository";
 import CreateCategoryUseCase from "./CreateCategoryUseCase";
 import AppError from "../../../../shared/errors/AppError"

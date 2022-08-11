@@ -1,4 +1,4 @@
-import UsersMemoryRepository from "../../infra/repositories/UsersMemoryRepository";
+import UsersMemoryRepository from "../../infra/repositories/UsersRepositoryInMemory";
 import { IUsersRepository } from "../../entities/IUsersRepository";
 import AuthenticateUserUseCase from "./AuthenticateUserUseCase";
 import { IAuthenticateUserUseCase } from "./IAuthenticateUserUseCase";

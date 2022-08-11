@@ -2,7 +2,7 @@ import { ICreateCarDTO } from "../../dtos/ICreateCarDTO";
 import Car from "../../entities/Car";
 import { ICarsRepository } from "../../entities/ICarsRepository";
 
-export default class CarsMemoryRepository implements ICarsRepository{
+export default class CarsRepositoryInMemory implements ICarsRepository{
   cars: Car[];
 
   constructor(){
