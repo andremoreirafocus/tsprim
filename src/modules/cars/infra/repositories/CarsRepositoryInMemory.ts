@@ -8,7 +8,7 @@ export default class CarsRepositoryInMemory implements ICarsRepository{
   constructor(){
     this.cars = [];
   }
-  async create({name, description, daily_rate, license_plate, fine_amount, brand, category_id}: ICreateCarDTO): Promise<Car> {
+  async create({name, description, daily_rate, license_plate, fine_amount, brand, category_id}: ICreateCarDTO): Promise<void> {
     const car = new Car(
       name, 
       description, 
@@ -19,7 +19,6 @@ export default class CarsRepositoryInMemory implements ICarsRepository{
       category_id,
     );
     this.cars.push(car);
-    return car;
   }
   
   async get(): Promise<Car[]> {

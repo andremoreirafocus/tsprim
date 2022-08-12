@@ -1,9 +1,11 @@
+import { inject, injectable } from "tsyringe";
 import AppError from "../../../../shared/errors/AppError";
 import { ICreateCarDTO } from "../../dtos/ICreateCarDTO";
 import { ICarsRepository } from "../../entities/ICarsRepository";
 
+@injectable()
 export default class CreateCarUseCase {
-  constructor(private carsRepository: ICarsRepository){}
+  constructor(@inject("CarsRepository") private carsRepository: ICarsRepository){}
 
   async execute({name, description, daily_rate, license_plate, fine_amount, brand, category_id}: ICreateCarDTO): Promise<void> {
     const carAlreadyExists = await this.checkIfAlreadyExists(license_plate);
