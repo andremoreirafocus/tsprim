@@ -8,6 +8,9 @@ export default class CarsRepositoryInMemory implements ICarsRepository{
   constructor(){
     this.cars = [];
   }
+  findByLicenseWithCategory(license_plate: string): Promise<Car[]> {
+    throw new Error("Method not implemented.");
+  }
   async create({name, description, daily_rate, license_plate, fine_amount, brand, category_id}: ICreateCarDTO): Promise<void> {
     const car = new Car(
       name, 

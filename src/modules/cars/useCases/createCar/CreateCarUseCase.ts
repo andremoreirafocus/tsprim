@@ -22,7 +22,9 @@ export default class CreateCarUseCase {
       fine_amount,
       brand,
       category_id
-    });    // const car = await this.carsRepository.findByLicensePlate(license_plate);
+    });    
+    const car = await this.carsRepository.findByLicenseWithCategory(license_plate);
+    console.log(car);
   }
 
   async checkIfAlreadyExists (license_plate: string): Promise<boolean> {

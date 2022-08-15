@@ -7,6 +7,7 @@ interface ICarsRepository {
   findByCategory(category: string): Promise<Car[]>
   findByBrand(brand: string): Promise<Car[]>
   findByLicensePlate(license_plate: string): Promise<Car>
+  findByLicenseWithCategory(license_plate: string):Promise<Car[]>
 }
 
 export { ICarsRepository }
