@@ -5,8 +5,8 @@ import {ISpecificationsRepository} from "../../modules/cars/entities/ISpecificat
 import SpecificationsRepository from "../../modules/cars/infra/repositories/SpecificationsRepository"
 import { IUsersRepository } from "../../modules/accounts/entities/IUsersRepository";
 import UsersRepository from "../../modules/accounts/infra/repositories/UsersRepository";
-import { ICarsRepository } from "src/modules/cars/entities/ICarsRepository";
-import CarsRepository from "src/modules/cars/infra/repositories/CarsRepository";
+import { ICarsRepository } from "../../modules/cars/entities/ICarsRepository";
+import CarsRepository from "../../modules/cars/infra/repositories/CarsRepository";
 
 container.registerSingleton<ICategoriesRepository>(
   "CategoriesRepository", 
