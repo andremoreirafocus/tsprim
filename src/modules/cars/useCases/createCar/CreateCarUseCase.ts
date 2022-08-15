@@ -14,7 +14,7 @@ export default class CreateCarUseCase {
       console.log("Car already exists")
       throw new AppError("Car already exists");
     }
-    this.carsRepository.create({
+    await this.carsRepository.create({
       name,
       description,
       daily_rate,
@@ -22,7 +22,7 @@ export default class CreateCarUseCase {
       fine_amount,
       brand,
       category_id
-    });
+    });    // const car = await this.carsRepository.findByLicensePlate(license_plate);
   }
 
   async checkIfAlreadyExists (license_plate: string): Promise<boolean> {
