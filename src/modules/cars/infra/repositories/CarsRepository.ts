@@ -8,6 +8,13 @@ export default class CarsRepository implements ICarsRepository {
   constructor() {
     this.repository = getRepository(Car);
   }
+  async findByLicenseWithCategory(license_plate: string): Promise<Car[]> {
+    const cars = await this.repository.find({
+      where: {license_plate},
+      relations: ["category"]
+    })
+    return cars;
+  }
   async create({
     name, 
     description, 
